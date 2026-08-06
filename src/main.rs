@@ -10,6 +10,26 @@ use std::time::Duration;
 
 
 
+/// Söker igenom raden efter specifika mönster och avatarnamn
+fn findpatterns(line: &str) {
+    // Lista på avatarnamn att leta efter
+    let avatars = ["Deux", "Pelleman", "Ex"];
+
+    // 1. Sök efter avatarnamn
+    for name in &avatars {
+        if line.contains(name) {
+            println!(" MATCH: Hittade avatar '{}' i raden!", name);
+        }
+    }
+
+    // 2. Här kan du lägga till fler mönstersökningar (t.ex. med Regex eller vanliga strängjämförelser)
+    if line.contains("ERROR") {
+        println!(" MÖNSTER: Upptäckte ett felmeddelande i raden!");
+    }
+}
+
+
+
 /// Skapar en named pipe (FIFO) om den inte redan finns
 fn ensure_fifo_exists(pipe_path: &str) -> std::io::Result<()> {
     let path = Path::new(pipe_path);
@@ -58,6 +78,9 @@ fn read_last_line<P: AsRef<Path>>(path: P) -> std::io::Result<Option<String>> {
 /// Analyserar strängen, skriver ut den och skickar vidare till en pipe
 fn analyzestring(data: &str, pipe_path: &str) {
     println!("Standard utskrift: {}", data);
+
+	// Kör mönstersökningen på den inkomna raden
+    findpatterns(data);
 
     if let Err(e) = send_to_pipe(data, pipe_path) {
         eprintln!("Kunde inte skriva till pipe {}: {}", pipe_path, e);
