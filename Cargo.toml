@@ -1,0 +1,10 @@
+[package]
+name = "changefilereader"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+notify = "8.2.0"
+notify-debouncer-full = "0.7.0"
+nix = { version = "0.31.3", features = ["fs"] }
+
