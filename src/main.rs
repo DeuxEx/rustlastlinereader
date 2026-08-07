@@ -21,7 +21,7 @@ fn findpatterns(line: &str) {
     // 1. Sök efter avatarnamn
     //for name in &avatars {
         if line.contains(AVATARS) {
-            println!(" MATCH: Hittade avatar '{}' i raden!", AVATARS);
+            println!(" MATCH: Avatar '{}' found!", AVATARS);
         }
     //}
 
@@ -103,10 +103,25 @@ fn send_to_pipe(data: &str, pipe_path: &str) -> std::io::Result<()> {
 
 
 
+
+fn formatstring(line: &str) -> &str
+{
+    let newline: &str = line;
+    //inledning: 2026-08-07 15:25:36 []
+
+
+    //ersätt och-tecknet
+    if line.contains("&quot;"){let newline = line.replace("&quot;","&");}
+
+    return newline;
+}
+
+
+
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
-//    let target_file = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-//    let fifo_pipe = "/tmp/min_pipe"; // Variabeln för sökvägen till din pipe
+    let mut newstring: String;
 
     // 1. Säkerställ att pipen finns (skapas automatiskt om den saknas)
     ensure_fifo_exists(FIFO_PIPE)?;
@@ -137,7 +152,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         Ok(Some(line)) => {
                             last_line = line;
                             //analyzestring(&last_line, fifo_pipe);
-                            analyzestring(&last_line);
+
+                            let newstring: &str = formatstring(&last_line);
+                            //analyzestring(&last_line);
+                            analyzestring(&newstring);
+
                         }
                         Ok(None) => println!("The file is empty."),
                         Err(e) => eprintln!("Error reading: {}", e),
