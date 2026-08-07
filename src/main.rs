@@ -104,14 +104,15 @@ fn send_to_pipe(data: &str, pipe_path: &str) -> std::io::Result<()> {
 
 
 
-fn formatstring(line: &str) -> &str
+fn formatstring(line: &str) -> String
 {
-    let newline: &str = line;
-    //inledning: 2026-08-07 15:25:36 []
+    let mut newline: String;
 
+    //inledning: 2026-08-07 15:25:36 []
+    let newline = line.split_at_checked(20);
 
     //ersätt och-tecknet
-    if line.contains("&quot;"){let newline = line.replace("&quot;","&");}
+    if line.contains("&quot;"){let newline = line.replace("&quot;","'");}
 
     return newline;
 }
@@ -153,7 +154,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             last_line = line;
                             //analyzestring(&last_line, fifo_pipe);
 
-                            let newstring: &str = formatstring(&last_line);
+                            let newstring = formatstring(&last_line);
                             //analyzestring(&last_line);
                             analyzestring(&newstring);
 
