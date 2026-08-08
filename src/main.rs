@@ -103,7 +103,7 @@ fn send_to_pipe(data: &str, pipe_path: &str) -> std::io::Result<()> {
 
 
 
-
+/*
 fn formatstring(line: &str) -> String
 {
     let mut newline: String;
@@ -116,7 +116,7 @@ fn formatstring(line: &str) -> String
 
     return newline;
 }
-
+*/
 
 
 
@@ -154,9 +154,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             last_line = line;
                             //analyzestring(&last_line, fifo_pipe);
 
-                            let newstring = formatstring(&last_line);
-                            //analyzestring(&last_line);
-                            analyzestring(&newstring);
+                            //let newstring = formatstring(&last_line);
+                            //analyzestring(&newstring);
+                            analyzestring(&last_line);
 
                         }
                         Ok(None) => println!("The file is empty."),
