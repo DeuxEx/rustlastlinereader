@@ -1,39 +1,58 @@
 use nix::sys::stat::Mode;
 use nix::unistd::mkfifo;
 use notify_debouncer_full::{new_debouncer,notify::{EventKind, RecursiveMode},};
-use std::fs::{File, OpenOptions};
+use std::{array, fs::{File, OpenOptions}};
 use std::io::{BufRead, BufReader, Seek, SeekFrom, Write};
 use std::path::Path;
 use std::sync::mpsc::channel;
 use std::time::Duration;
 
+
+
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till din pipe
-static AVATARS: &str = "Deux Pelleman Ex";
-//static WELCOME_TEXT: &str = "Hello";
+static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
+static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
+
+const BLOCKMATCH: &'static [&'static str] = &["#calytrade","#trade","#arktrade"];
+
 
 
 
 /// Söker igenom raden efter specifika mönster och avatarnamn
 fn findpatterns(line: &str) {
-    // Lista på avatarnamn att leta efter
 
     // 1. Sök efter avatarnamn
-    //for name in &avatars {
-        if line.contains(AVATARS) {
-            println!(" MATCH: Avatar '{}' found!", AVATARS);
-        }
-    //}
+        if line.contains(AVATAR) {println!(" MATCH: Avatar '{}' found!", AVATAR);}
 
-    // 2. Här kan du lägga till fler mönstersökningar (t.ex. med Regex eller vanliga strängjämförelser)
-    if line.contains("ERROR") {
-        println!(" MÖNSTER: Upptäckte ett felmeddelande i raden!");
+    // 2026-08-07 15:26:23 [#calytrade] [Joshua Crone Craftson] WTB [Entropia Unreal Token] @ 12 ped each
+
+    //Systemevent
+    if line.contains("[System]")
+    {
+        // [System] [] You inflicted 105.0 points of damage
+        // 2026-08-07 15:25:10 [System] [] You received Enhanced Adaptive Fuse x (6) Value: 7.02 PED
+        // 2026-08-07 15:26:00 [System] [] Critical hit - Additional damage! You inflicted 281.9 points of damage
+        // 2026-08-07 15:26:06 [System] [] You have gained 0.0041 experience in your Wounding skill
+        if line.contains("You inflicted") || line.contains("Critical hit - Additional damage! You inflicted ")
+        {
+            //output damage
+        }
     }
+
+    //Globalevent
+    if line.contains("[Global]")
+    {
+        // [Globals] [] Deux Pelleman Ex killed a creature (Araneatrox Prowler) with a value of 120 PED!
+    }
+
+    //Blocked entries
+
+
 }
 
 
 
-/// Skapar en named pipe (FIFO) om den inte redan finns
+/// Create a named pipe (FIFO) if not exists
 fn ensure_fifo_exists(pipe_path: &str) -> std::io::Result<()> {
     let path = Path::new(pipe_path);
 
@@ -44,7 +63,7 @@ fn ensure_fifo_exists(pipe_path: &str) -> std::io::Result<()> {
 
         match mkfifo(path, mode)
         {
-            Ok(_) => println!("Skapade named pipe: {}", pipe_path),
+            Ok(_) => println!("Created pipe: {}", pipe_path),
             Err(nix::errno::Errno::EEXIST) => {} // Finns redan, ingenting behöver göras
             Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e)),
         }
@@ -82,6 +101,7 @@ fn read_last_line<P: AsRef<Path>>(path: P) -> std::io::Result<Option<String>> {
 //fn analyzestring(data: &str, pipe_path: &str) {
 fn analyzestring(data: &str) {
     //println!("Standard utskrift: {}", data);
+    println!("{}", data);
 
     // Kör mönstersökningen på den inkomna raden
     findpatterns(data);
