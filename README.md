@@ -6,3 +6,6 @@ to be used by other executables that can read the memorymaps and present outputs
 im fairly new to Rust so this is alot of re-thinking how Rust works compared to C#
 
 later on the project will be crosscompiled to both linux and windows.
+
+to use the executable:
+git clone this path and chmod +x the targetfile
