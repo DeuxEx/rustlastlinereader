@@ -5,6 +5,7 @@
 
 mod patterns;
 use patterns::findpatterns;
+use patterns::analyzestring;
 mod watchdog;
 use watchdog::read_last_line;
 mod pipe;
@@ -30,42 +31,6 @@ static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipe
 
 
 
-
-
-// Analyserar strängen, skriver ut den och skickar vidare till en pipe
-//fn analyzestring(data: &str, pipe_path: &str) {
-fn analyzestring(data: &str) {
-    //println!("Standard utskrift: {}", data);
-    println!("{}", data);
-
-    // Kör mönstersökningen på den inkomna raden
-    findpatterns(data);
-
-    //if let Err(e) = send_to_pipe(data, pipe_path) {
-    //    eprintln!("Kunde inte skriva till pipe {}: {}", pipe_path, e);
-    //}
-}
-
-
-
-
-/*
-fn formatstring(line: &str) -> String
-{
-    let mut newline: String;
-
-    //inledning: 2026-08-07 15:25:36 []
-    let newline = line.split_at_checked(20);
-
-    //ersätt och-tecknet
-    if line.contains("&quot;"){let newline = line.replace("&quot;","'");}
-
-    return newline;
-}
-*/
-
-
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut newstring: String;
@@ -86,7 +51,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Watchdog started for: {} (Pipe target: {})",path.display(),FIFO_PIPE);
 
     let mut last_line: String;
-
 
 
     for result in rx {
@@ -120,5 +84,4 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
 

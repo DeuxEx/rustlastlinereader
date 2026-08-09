@@ -7,6 +7,8 @@ static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
 const BLOCKMATCH: &'static [&'static str] = &["#calytrade","#trade","#arktrade"];
 
 
+
+
 /// Söker igenom raden efter specifika mönster och avatarnamn
 pub fn findpatterns(line: &str) {
 
@@ -52,6 +54,43 @@ pub fn findpatterns(line: &str) {
     {
         // [Globals] [] Deux Pelleman Ex killed a creature (Araneatrox Prowler) with a value of 120 PED!
     }
-
-
 }
+
+
+
+
+
+
+
+// Analyserar strängen, skriver ut den och skickar vidare till en pipe
+//fn analyzestring(data: &str, pipe_path: &str) {
+pub fn analyzestring(data: &str) {
+    //println!("Standard utskrift: {}", data);
+    println!("{}", data);
+
+    // Kör mönstersökningen på den inkomna raden
+    findpatterns(data);
+
+    //if let Err(e) = send_to_pipe(data, pipe_path) {
+    //    eprintln!("Kunde inte skriva till pipe {}: {}", pipe_path, e);
+    //}
+}
+
+
+
+
+/*
+ * pub fn formatstring(line: &str) -> String
+ * {
+ *    let mut newline: String;
+ *
+ *    //inledning: 2026-08-07 15:25:36 []
+ *    let newline = line.split_at_checked(20);
+ *
+ *    //ersätt och-tecknet
+ *    if line.contains("&quot;"){let newline = line.replace("&quot;","'");}
+ *
+ *    return newline;
+ * }
+ */
+
