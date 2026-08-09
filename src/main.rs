@@ -1,6 +1,13 @@
+
+
+mod patterns;
+use patterns::findpatterns;
+
+
+
 use nix::sys::stat::Mode;
 use nix::unistd::mkfifo;
-use notify_debouncer_full::{new_debouncer,notify::{EventKind, RecursiveMode},};
+use notify_debouncer_full::{new_debouncer,notify::{event::ModifyKind, EventKind, RecursiveMode},};
 use std::{array, fs::{File, OpenOptions}};
 use std::io::{BufRead, BufReader, Seek, SeekFrom, Write};
 use std::path::Path;
@@ -11,44 +18,8 @@ use std::time::Duration;
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
 static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
-static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
-
-const BLOCKMATCH: &'static [&'static str] = &["#calytrade","#trade","#arktrade"];
 
 
-
-
-/// Söker igenom raden efter specifika mönster och avatarnamn
-fn findpatterns(line: &str) {
-
-    // 1. Sök efter avatarnamn
-        if line.contains(AVATAR) {println!(" MATCH: Avatar '{}' found!", AVATAR);}
-
-    // 2026-08-07 15:26:23 [#calytrade] [Joshua Crone Craftson] WTB [Entropia Unreal Token] @ 12 ped each
-
-    //Systemevent
-    if line.contains("[System]")
-    {
-        // [System] [] You inflicted 105.0 points of damage
-        // 2026-08-07 15:25:10 [System] [] You received Enhanced Adaptive Fuse x (6) Value: 7.02 PED
-        // 2026-08-07 15:26:00 [System] [] Critical hit - Additional damage! You inflicted 281.9 points of damage
-        // 2026-08-07 15:26:06 [System] [] You have gained 0.0041 experience in your Wounding skill
-        if line.contains("You inflicted") || line.contains("Critical hit - Additional damage! You inflicted ")
-        {
-            //output damage
-        }
-    }
-
-    //Globalevent
-    if line.contains("[Global]")
-    {
-        // [Globals] [] Deux Pelleman Ex killed a creature (Araneatrox Prowler) with a value of 120 PED!
-    }
-
-    //Blocked entries
-
-
-}
 
 
 
@@ -161,12 +132,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut last_line: String;
 
+
+
     for result in rx {
         match result {
             Ok(events) => {
-                let is_modified = events.iter().any(|event| {
-                    matches!(event.kind, EventKind::Modify(_))
-                });
+                // Filtrera så att vi ENBART reagerar när faktiskt innehåll/data ändras
+                let is_modified = events.iter().any(|event| { matches!(event.kind, EventKind::Modify(_)) });
 
                 if is_modified {
                     match read_last_line(path) {
@@ -177,7 +149,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             //let newstring = formatstring(&last_line);
                             //analyzestring(&newstring);
                             analyzestring(&last_line);
-
                         }
                         Ok(None) => println!("The file is empty."),
                         Err(e) => eprintln!("Error reading: {}", e),
@@ -194,3 +165,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
+
+
