@@ -4,13 +4,11 @@
 
 
 mod patterns;
-use patterns::findpatterns;
-use patterns::analyzestring;
+use patterns::{analyzestring, findpatterns};
 mod watchdog;
 use watchdog::read_last_line;
 mod pipe;
-use pipe::ensure_fifo_exists;
-use pipe::send_to_pipe;
+use pipe::{ensure_fifo_exists,send_to_pipe};
 
 
 use nix::sys::stat::Mode;
