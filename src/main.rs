@@ -1,10 +1,13 @@
-
+#![allow(dead_code)]
+#[allow(unused_variables)]
 
 mod patterns;
 use patterns::findpatterns;
 mod watchdog;
 use watchdog::read_last_line;
-
+mod pipe;
+use pipe::ensure_fifo_exists;
+use pipe::send_to_pipe;
 
 
 use nix::sys::stat::Mode;
@@ -25,32 +28,6 @@ static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipe
 
 
 
-/// Create a named pipe (FIFO) if not exists
-fn ensure_fifo_exists(pipe_path: &str) -> std::io::Result<()> {
-    let path = Path::new(pipe_path);
-
-    if !path.exists()
-    {
-        // Skapa FIFO med rättigheterna 0666 (läs/skriv för alla, modifieras av umask)
-        let mode = Mode::S_IRUSR | Mode::S_IWUSR | Mode::S_IRGRP | Mode::S_IWGRP | Mode::S_IROTH | Mode::S_IWOTH;
-
-        match mkfifo(path, mode)
-        {
-            Ok(_) => println!("Created pipe: {}", pipe_path),
-            Err(nix::errno::Errno::EEXIST) => {} // Finns redan, ingenting behöver göras
-            Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e)),
-        }
-    }
-    else
-    {
-        println!("PIPE already exists {}", pipe_path);
-    }
-    Ok(())
-}
-
-
-
-
 
 
 // Analyserar strängen, skriver ut den och skickar vidare till en pipe
@@ -67,15 +44,6 @@ fn analyzestring(data: &str) {
     //}
 }
 
-
-
-/// Skriver raden till pipen
-fn send_to_pipe(data: &str, pipe_path: &str) -> std::io::Result<()> {
-    let mut pipe = OpenOptions::new().write(true).open(pipe_path)?;
-    writeln!(pipe, "{}", data)?;
-    pipe.flush()?;
-    Ok(())
-}
 
 
 

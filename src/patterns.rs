@@ -1,6 +1,7 @@
+#![allow(dead_code)]
+
 
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
-
 const BLOCKMATCH: &'static [&'static str] = &["#calytrade","#trade","#arktrade"];
 
 
