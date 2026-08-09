@@ -1,4 +1,6 @@
 #![allow(dead_code)]
+#![allow(unused_variables)]
+#![allow(unused_imports)]
 
 
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
