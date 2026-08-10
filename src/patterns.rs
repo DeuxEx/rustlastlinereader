@@ -3,7 +3,7 @@
 #![allow(unused_imports)]
 
 
-use crate::CONFIG;
+use crate::CONFIG; // Ger tillgång till den globala CONFIG
 
 
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
@@ -11,14 +11,16 @@ const BLOCKMATCH: &'static [&'static str] = &["#calytrade","#trade","#arktrade"]
 
 
 
-
-pub fn start_watching() {
+pub fn kor_analys() {
+    // 1. Hämta datan från CONFIG
     let conf = CONFIG.get().unwrap();
-    
-    println!("{}", conf.target_file);
-    println!("{}", conf.fifo_pipe);
-}
 
+    // 2. Använd variablerna i din logik
+    println!("Startar analys för fil: {}", conf.target_file);
+    println!("FIFO-pipe som används: {}", conf.fifo_pipe);
+
+    // Din övriga kod / logik här...
+}
 
 
 /// Söker igenom raden efter specifika mönster och avatarnamn
