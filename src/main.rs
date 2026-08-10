@@ -44,9 +44,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut newstring: String;
 
     //this is a routine for sharing struct data between all .rs files.
+    // 1. Läs in inifilen
     let conf = Config::from_file("config.ini").unwrap();
+    // 2. Spara i CONFIG
     CONFIG.set(conf).unwrap();
-    watcher::start_watching();
+    // 3. ANROPA funktionen från den andra filen!
+    patterns::kor_analys();
+
+    
 
     
     // 1. Make sure the PIPE exists (auto creating if its missing)
