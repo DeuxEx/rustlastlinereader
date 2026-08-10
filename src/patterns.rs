@@ -3,9 +3,21 @@
 #![allow(unused_imports)]
 
 
+use crate::CONFIG;
+
+
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
 const BLOCKMATCH: &'static [&'static str] = &["#calytrade","#trade","#arktrade"];
 
+
+
+
+pub fn start_watching() {
+    let conf = CONFIG.get().unwrap();
+    
+    println!("{}", conf.target_file);
+    println!("{}", conf.fifo_pipe);
+}
 
 
 
