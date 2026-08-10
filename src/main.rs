@@ -56,7 +56,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut newstring: String;
 
     //this is a routine for sharing struct data between all .rs files.
-    populateconfigstruct
+    populateconfigstruct;
 
     
     // 1. Make sure the PIPE exists (auto creating if its missing)
