@@ -37,6 +37,18 @@ static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipe
 
 
 
+fn populateconfigstruct()
+    {
+        //this is a routine for sharing struct data between all .rs files.
+        // 1. Läs in inifilen
+        let conf = Config::from_file("config.ini").unwrap();
+        // 2. Spara i CONFIG
+        CONFIG.set(conf).unwrap();
+        // 3. ANROPA funktionen från den andra filen!
+        patterns::kor_analys();
+    }
+
+
 
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -44,14 +56,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut newstring: String;
 
     //this is a routine for sharing struct data between all .rs files.
-    // 1. Läs in inifilen
-    let conf = Config::from_file("config.ini").unwrap();
-    // 2. Spara i CONFIG
-    CONFIG.set(conf).unwrap();
-    // 3. ANROPA funktionen från den andra filen!
-    patterns::kor_analys();
-
-    
+    populateconfigstruct
 
     
     // 1. Make sure the PIPE exists (auto creating if its missing)
