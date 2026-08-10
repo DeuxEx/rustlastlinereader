@@ -39,8 +39,6 @@ static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipe
 
 fn populateconfigstruct()
     {
-        //read the inifile
-        
         //this is a routine for sharing struct data between all .rs files.
         // 1. Läs in inifilen
         let conf = Config::from_file("config.ini").unwrap();
