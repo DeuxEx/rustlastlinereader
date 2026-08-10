@@ -20,6 +20,16 @@ use std::path::Path;
 use std::sync::mpsc::channel;
 use std::time::Duration;
 
+//this is a routine for sharing struct data between all .rs files.
+use std::sync::OnceLock;
+pub static CONFIG: OnceLock<Config> = OnceLock::new();
+
+pub struct Config {
+    pub target_file: String,
+    pub fifo_pipe: String,
+    // dina övriga variabler...
+}
+
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
@@ -33,10 +43,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut newstring: String;
 
-    // 1. Säkerställ att pipen finns (skapas automatiskt om den saknas)
+    //this is a routine for sharing struct data between all .rs files.
+    let conf = Config::from_file("config.ini").unwrap();
+    CONFIG.set(conf).unwrap();
+    watcher::start_watching();
+
+    
+    // 1. Make sure the PIPE exists (auto creating if its missing)
     ensure_fifo_exists(FIFO_PIPE)?;
 
-    // 2. Säkerställ att målfilen finns
+    // 2. Make sure the target file exists
     let path = Path::new(TARGET_FILE);
     if !path.exists() {
         File::create(path)?;
