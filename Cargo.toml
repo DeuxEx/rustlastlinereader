@@ -8,3 +8,5 @@ notify = "8.2.0"
 notify-debouncer-full = "0.7.0"
 nix = { version = "0.31.3", features = ["fs"] }
 
+serde = { version = "1.0", features = ["derive"] }
+serde_ini ="0.2"
