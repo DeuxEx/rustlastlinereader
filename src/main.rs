@@ -10,9 +10,9 @@ mod pipe;
 use pipe::{ensure_fifo_exists, send_to_pipe};
 
 use serde::Deserialize;
-use std::fs;
+use std::fs::{self, exists};
 
-use nix::sys::stat::Mode;
+use nix::{libc::file_handle, sys::stat::Mode};
 use nix::unistd::mkfifo;
 
 use notify_debouncer_full::{
@@ -40,6 +40,7 @@ pub struct Config {
     pub fifo_pipe: String,
     // dina övriga variabler...
 }
+
 
 impl Config {
     pub fn from_file(path: &str) -> Result<Self, Box<dyn std::error::Error>> {
@@ -76,12 +77,21 @@ static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipe
 fn populateconfigstruct() {
     //this is a routine for sharing struct data between all .rs files.
     // 1. Läs in inifilen
-    let conf = Config::from_file("config.ini").unwrap();
+    let configfile = "config.ini";
 
-    // 2. Spara i CONFIG
-    CONFIG.set(conf).unwrap();
-    // 3. ANROPA funktionen från den andra filen!
-    patterns::kor_analys();
+    if exists(configfile).expect("REASON")
+    {
+        let conf = Config::from_file("config.ini").unwrap();
+        // 2. Spara i CONFIG
+        CONFIG.set(conf).unwrap();
+        // 3. ANROPA funktionen från den andra filen!
+        patterns::kor_analys();
+    }
+    else
+    {
+        println!("File doesnt exists {}", configfile);
+    }
+
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
