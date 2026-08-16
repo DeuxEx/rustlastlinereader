@@ -33,15 +33,16 @@ pub fn findpatterns(line: &str) {
         if line.contains(blocks) {
             // 2026-08-07 15:26:23 [#calytrade] [Joshua Crone Craftson] WTB [Entropia Unreal Token] @ 12 ped each
             println!("block found, skipping to next line: {}", blocks.red().bold());
-            let _ = startwatching();
+            return;
         }
     }
 
     // 1. Sök efter avatarnamn
     if line.contains(AVATAR) {
         println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
-        let _ = startwatching();
+        return;
     }
+
 
     //Systemevent
     if line.contains("[System]") {
@@ -58,7 +59,7 @@ pub fn findpatterns(line: &str) {
                     if let Ok(damage) = between.trim().parse::<f64>() {
                         // Här har du ditt decimaltal i variabeln `damage` (f64)
                         println!("Skada: {}", damage);
-                        let _ = startwatching();
+                        return;
                     }
                 }
             }
@@ -68,9 +69,11 @@ pub fn findpatterns(line: &str) {
     //Globalevent
     if line.contains("[Global]") {
         // [Globals] [] Deux Pelleman Ex killed a creature (Araneatrox Prowler) with a value of 120 PED!
-        let _ = startwatching();
+        return;
     }
 }
+
+
 
 // Analyserar strängen, skriver ut den och skickar vidare till en pipe
 //fn analyzestring(data: &str, pipe_path: &str) {
