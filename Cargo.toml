@@ -10,3 +10,6 @@ nix = { version = "0.31.3", features = ["fs"] }
 
 serde = { version = "1.0", features = ["derive"] }
 serde_ini ="0.2"
+
+colored = "2"
+
