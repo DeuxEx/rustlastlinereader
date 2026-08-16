@@ -88,7 +88,7 @@ fn populateconfigstruct() {
     }
     else
     {
-        println!("File doesnt exists {}", configfile);
+        eprintln!("[File doesnt exists: {}]", configfile);
     }
 }
 

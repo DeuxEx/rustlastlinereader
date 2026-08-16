@@ -6,7 +6,7 @@
 use crate::analyzestring;
 
 
-use std::{array, fs::{File, OpenOptions}};
+use std::{array, fs::{File, OpenOptions, exists}};
 use std::io::{BufRead, BufReader, Seek, SeekFrom, Write};
 use std::path::Path;
 
@@ -14,10 +14,13 @@ use std::sync::mpsc::channel;
 use std::time::Duration;
 
 
+use nix::libc::file_handle;
 use notify_debouncer_full::{
     new_debouncer,
     notify::{EventKind, RecursiveMode, event::ModifyKind},
 };
+
+use serde_ini::ser::Error;
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
@@ -52,14 +55,26 @@ pub fn startwatching() -> Result<(), Box<dyn std::error::Error>>
     let mut newstring: String;
 
     // 2. Make sure the target file exists
-    let path = Path::new(TARGET_FILE);
-    if !path.exists() {
-        File::create(path)?;
+    //let path = Path::new(TARGET_FILE);
+    //if !path.exists() {
+    //    File::create(path)?;
+    //}
+
+    if exists(TARGET_FILE).expect("REASON")
+    {
+        println!("[Start analyzing: {}]", TARGET_FILE);
     }
+    else
+    {
+        //println!("Couldnt find file: {}", TARGET_FILE);
+        eprintln!("[Couldnt find file: {}]", TARGET_FILE)
+    }
+
 
     let (tx, rx) = channel();
     let mut debouncer = new_debouncer(Duration::from_millis(200), None, tx)?;
-    debouncer.watch(path, RecursiveMode::NonRecursive)?;
+    //debouncer.watch(path, RecursiveMode::NonRecursive)?;
+    debouncer.watch(TARGET_FILE, RecursiveMode::NonRecursive)?;
 
 
     let mut last_line: String;
@@ -73,8 +88,9 @@ pub fn startwatching() -> Result<(), Box<dyn std::error::Error>>
                 .any(|event| matches!(event.kind, EventKind::Modify(_)));
 
                 if is_modified {
-                    match read_last_line(path) {
-                        Ok(Some(line)) => {
+                    //match read_last_line(path) {
+                    match read_last_line(TARGET_FILE) {
+                            Ok(Some(line)) => {
                             last_line = line;
                             //analyzestring(&last_line, fifo_pipe);
 

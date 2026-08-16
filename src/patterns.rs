@@ -2,10 +2,12 @@
 #![allow(unused_variables)]
 #![allow(unused_imports)]
 
-use crate::CONFIG; // Ger tillgång till den globala CONFIG
+use crate::{CONFIG, filewatching::startwatching}; // Ger tillgång till den globala CONFIG
 
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
 const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade"];
+
+
 
 pub fn kor_analys() {
     // 1. Hämta datan från CONFIG
@@ -18,6 +20,8 @@ pub fn kor_analys() {
     // Din övriga kod / logik här...
 }
 
+
+
 /// Söker igenom raden efter specifika mönster och avatarnamn
 pub fn findpatterns(line: &str) {
     //Blocked entries
@@ -25,13 +29,14 @@ pub fn findpatterns(line: &str) {
         if line.contains(blocks) {
             // 2026-08-07 15:26:23 [#calytrade] [Joshua Crone Craftson] WTB [Entropia Unreal Token] @ 12 ped each
             println!("block found, skipping to next line: {}", blocks);
-            return;
+            let _ = startwatching();
         }
     }
 
     // 1. Sök efter avatarnamn
     if line.contains(AVATAR) {
         println!(" MATCH: Avatar '{}' found!", AVATAR);
+        let _ = startwatching();
     }
 
     //Systemevent
@@ -49,6 +54,7 @@ pub fn findpatterns(line: &str) {
                     if let Ok(damage) = between.trim().parse::<f64>() {
                         // Här har du ditt decimaltal i variabeln `damage` (f64)
                         println!("Skada: {}", damage);
+                        let _ = startwatching();
                     }
                 }
             }
@@ -58,6 +64,7 @@ pub fn findpatterns(line: &str) {
     //Globalevent
     if line.contains("[Global]") {
         // [Globals] [] Deux Pelleman Ex killed a creature (Araneatrox Prowler) with a value of 120 PED!
+        let _ = startwatching();
     }
 }
 
