@@ -14,6 +14,7 @@ use std::sync::mpsc::channel;
 use std::time::Duration;
 
 
+use colored::Colorize;
 use nix::libc::file_handle;
 use notify_debouncer_full::{
     new_debouncer,
@@ -67,7 +68,7 @@ pub fn startwatching() -> Result<(), Box<dyn std::error::Error>>
     else
     {
         //println!("Couldnt find file: {}", TARGET_FILE);
-        eprintln!("[Couldnt find file: {}]", TARGET_FILE)
+        eprintln!("[Couldnt find file: {}]", TARGET_FILE.red().bold())
     }
 
 

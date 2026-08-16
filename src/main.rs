@@ -34,6 +34,13 @@ pub static CONFIG: OnceLock<Config> = OnceLock::new();
 
 static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
 
+//ansi colors and details on text
+use colored::*;
+
+
+
+
+
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
@@ -88,7 +95,7 @@ fn populateconfigstruct() {
     }
     else
     {
-        eprintln!("[File doesnt exists: {}]", configfile);
+        eprintln!("[File doesnt exists: {}]", configfile.red().bold());
     }
 }
 

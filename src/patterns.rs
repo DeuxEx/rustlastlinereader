@@ -4,8 +4,12 @@
 
 use crate::{CONFIG, filewatching::startwatching}; // Ger tillgång till den globala CONFIG
 
+//ansi colors and details on text
+use colored::*;
+
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
 const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade"];
+
 
 
 
@@ -28,14 +32,14 @@ pub fn findpatterns(line: &str) {
     for blocks in BLOCKMATCH {
         if line.contains(blocks) {
             // 2026-08-07 15:26:23 [#calytrade] [Joshua Crone Craftson] WTB [Entropia Unreal Token] @ 12 ped each
-            println!("block found, skipping to next line: {}", blocks);
+            println!("block found, skipping to next line: {}", blocks.red().bold());
             let _ = startwatching();
         }
     }
 
     // 1. Sök efter avatarnamn
     if line.contains(AVATAR) {
-        println!(" MATCH: Avatar '{}' found!", AVATAR);
+        println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
         let _ = startwatching();
     }
 
