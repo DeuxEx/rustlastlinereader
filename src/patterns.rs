@@ -29,8 +29,10 @@ pub fn kor_analys() {
 /// Söker igenom raden efter specifika mönster och avatarnamn
 pub fn findpatterns(line: &str) {
     //Blocked entries
-    for blocks in BLOCKMATCH {
-        if line.contains(blocks) {
+    for blocks in BLOCKMATCH
+    {
+        if line.contains(blocks)
+        {
             // 2026-08-07 15:26:23 [#calytrade] [Joshua Crone Craftson] WTB [Entropia Unreal Token] @ 12 ped each
             println!("block found, skipping to next line: {}", blocks.red().bold());
             return;
@@ -38,7 +40,8 @@ pub fn findpatterns(line: &str) {
     }
 
     // 1. Sök efter avatarnamn
-    if line.contains(AVATAR) {
+    if line.contains(AVATAR)
+    {
         println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
         return;
     }
@@ -54,11 +57,17 @@ pub fn findpatterns(line: &str) {
             || line.contains("Critical hit - Additional damage! You inflicted ")
         {
             // Extrahera decimaltalet direkt mellan "inflicted" och "points"
-            if let Some((_, after_inflicted)) = line.split_once("inflicted") {
-                if let Some((between, _)) = after_inflicted.split_once("points") {
-                    if let Ok(damage) = between.trim().parse::<f64>() {
+            if let Some((_, after_inflicted)) = line.split_once("inflicted")
+            {
+                if let Some((between, _)) = after_inflicted.split_once("points")
+                {
+                    if let Ok(damage) = between.trim().parse::<f64>()
+                    {
                         // Här har du ditt decimaltal i variabeln `damage` (f64)
-                        println!("Skada: {}", damage);
+                        //println!("Skada: {}", damage);
+
+                        let newstring = formatstring(line);
+                        println!("{}",newstring);
                         return;
                     }
                 }
@@ -66,9 +75,13 @@ pub fn findpatterns(line: &str) {
         }
     }
 
+
     //Globalevent
     if line.contains("[Global]") {
         // [Globals] [] Deux Pelleman Ex killed a creature (Araneatrox Prowler) with a value of 120 PED!
+
+        let newstring = formatstring(line);
+        println!("{}",newstring);
         return;
     }
 }
@@ -79,7 +92,7 @@ pub fn findpatterns(line: &str) {
 //fn analyzestring(data: &str, pipe_path: &str) {
 pub fn analyzestring(data: &str) {
     //println!("Standard utskrift: {}", data);
-    println!("{}", data);
+    //println!("{}", data);
 
     // Kör mönstersökningen på den inkomna raden
     findpatterns(data);
@@ -89,17 +102,32 @@ pub fn analyzestring(data: &str) {
     //}
 }
 
-/*
- * pub fn formatstring(line: &str) -> String
- * {
- *    let mut newline: String;
- *
- *    //inledning: 2026-08-07 15:25:36 []
- *    let newline = line.split_at_checked(20);
- *
- *    //ersätt och-tecknet
- *    if line.contains("&quot;"){let newline = line.replace("&quot;","'");}
- *
- *    return newline;
- * }
- */
+
+
+pub fn formatstring(line: &str) -> String
+{
+    // 1. Skapa en muterbar (föränderlig) String från input
+    let mut newline = line.to_string();
+
+    // 2. Ersätt text direkt i vår föränderliga 'newline'
+    if newline.contains("&quot;")
+    {
+        newline = newline.replace("&quot;", "'");
+    }
+
+    // .split_off(20) returnerar allt FRÅN tecken 20 och framåt.
+    // Vi sparar den delen i newline och kastar därmed bort de första 20.
+    if newline.len() >= 20
+    {
+        newline = newline.split_off(20);
+    }
+
+    // 4. Returnera det färdiga resultatet
+    return newline;
+}
+
+
+
+
+
+
