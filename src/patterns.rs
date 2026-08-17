@@ -2,32 +2,30 @@
 #![allow(unused_variables)]
 #![allow(unused_imports)]
 
-use crate::{CONFIG, filewatching::startwatching}; // Ger tillgång till den globala CONFIG
+use crate::{CONFIG, filewatching::LineTailer}; // Ger tillgång till den globala CONFIG
 
 //ansi colors and details on text
 use colored::*;
 
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
-const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade"];
+const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade", "#Rookie"];
 
 
 
 
 pub fn kor_analys() {
-    // 1. Hämta datan från CONFIG
     let conf = CONFIG.get().unwrap();
 
-    // 2. Använd variablerna i din logik
     println!("Startar analys för fil: {}", conf.target_file);
     println!("FIFO-pipe som används: {}", conf.fifo_pipe);
 
-    // Din övriga kod / logik här...
 }
 
 
 
 /// Söker igenom raden efter specifika mönster och avatarnamn
 pub fn findpatterns(line: &str) {
+
     //Blocked entries
     for blocks in BLOCKMATCH
     {
@@ -42,7 +40,9 @@ pub fn findpatterns(line: &str) {
     // 1. Sök efter avatarnamn
     if line.contains(AVATAR)
     {
-        println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
+        //println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
+        let newstring = formatstring(line);
+        println!("{}",newstring);
         return;
     }
 
@@ -66,9 +66,9 @@ pub fn findpatterns(line: &str) {
                         // Här har du ditt decimaltal i variabeln `damage` (f64)
                         //println!("Skada: {}", damage);
 
-                        let newstring = formatstring(line);
-                        println!("{}",newstring);
-                        return;
+                        //let newstring = formatstring(line);
+                        //println!("{}",newstring);
+                        //return;
                     }
                 }
             }
@@ -94,6 +94,9 @@ pub fn analyzestring(data: &str) {
     //println!("Standard utskrift: {}", data);
     //println!("{}", data);
 
+    let newstring = formatstring(data);
+    println!("{}",newstring);
+
     // Kör mönstersökningen på den inkomna raden
     findpatterns(data);
 
@@ -101,6 +104,7 @@ pub fn analyzestring(data: &str) {
     //    eprintln!("Kunde inte skriva till pipe {}: {}", pipe_path, e);
     //}
 }
+
 
 
 

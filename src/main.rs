@@ -6,7 +6,7 @@ mod patterns;
 use patterns::{analyzestring, findpatterns};
 
 mod filewatching;
-use filewatching::{read_last_line, startwatching};
+use filewatching::{LineTailer};
 
 mod pipe;
 use pipe::{ensure_fifo_exists, send_to_pipe};
@@ -27,6 +27,8 @@ use std::{
     fs::{File, OpenOptions},
 };
 
+static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
+
 
 //this is a routine for sharing struct data between all .rs files.
 use std::sync::OnceLock;
@@ -39,15 +41,15 @@ use colored::*;
 
 
 
-
-
-
 #[derive(Debug, Deserialize)]
 pub struct Config {
     pub target_file: String,
     pub fifo_pipe: String,
     // dina övriga variabler...
 }
+
+
+
 
 
 impl Config {
@@ -80,6 +82,8 @@ impl Config {
 }
 
 
+
+
 fn populateconfigstruct() {
     //this is a routine for sharing struct data between all .rs files.
     // 1. Läs in inifilen
@@ -101,26 +105,22 @@ fn populateconfigstruct() {
 
 
 
-fn main()  {
 
+
+fn main() -> std::io::Result<()> {
     //this is a routine for sharing struct data between all .rs files.
     populateconfigstruct();
 
-    // 1. Make sure the PIPE exists (auto creating if its missing)
-    //ensure_fifo_exists(FIFO_PIPE)?;
 
+    // 1. Skapa tailern en gång (startar i slutet av filen)
+    let mut tailer = LineTailer::new(TARGET_FILE)?;
 
-    //println!(
-    //    "Watchdog started for: {} (Pipe target: {})",
-    //    path.display(),
-    //    FIFO_PIPE
-    //);
+    // 2. Anropa i en loop eller vid event
+    loop {
+        if let Some(line) = tailer.read_next_new_line()? {
+            println!("Ny rad: {}", line);
+        }
 
-    let _ = startwatching();
+        std::thread::sleep(std::time::Duration::from_millis(100));
+    }
 }
-
-
-
-
-
-

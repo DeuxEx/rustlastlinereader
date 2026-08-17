@@ -4,14 +4,16 @@
 
 
 use crate::analyzestring;
+use crate::exists;
 
-
-use std::{array, fs::{File, OpenOptions, exists}};
-use std::io::{BufRead, BufReader, Seek, SeekFrom, Write};
+use std::fs::File;
+use std::io::{BufRead, BufReader, Seek, SeekFrom};
 use std::path::Path;
 
-use std::sync::mpsc::channel;
-use std::time::Duration;
+pub struct LineTailer {
+    reader: BufReader<File>,
+    last_pos: u64,
+}
 
 
 use colored::Colorize;
@@ -24,95 +26,53 @@ use notify_debouncer_full::{
 use serde_ini::ser::Error;
 
 
-static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
 
 
 
-/// Läser den sista icke-tomma raden ur en fil genom att söka sig bakåt från slutet
-pub fn read_last_line<P: AsRef<Path>>(path: P) -> std::io::Result<Option<String>> {
-    let mut file = File::open(path)?;
-    let file_size = file.metadata()?.len();
-
-    if file_size == 0 {
-        return Ok(None);
+impl LineTailer {
+    /// Skapar en ny tailer och ställer sig i slutet av filen
+    pub fn new<P: AsRef<Path>>(path: P) -> std::io::Result<Self> {
+        let mut file = File::open(path)?;
+        let last_pos = file.seek(SeekFrom::End(0))?;
+        Ok(Self {
+            reader: BufReader::new(file),
+           last_pos,
+        })
     }
 
-    let read_size = file_size.min(1024) as i64;
-    file.seek(SeekFrom::End(-read_size))?;
+    /// Läser nästa helt nya rad om filen har vuxit.
+    /// Returnerar `Ok(None)` om inga nya färdiga rader finns ännu.
+    pub fn read_next_new_line(&mut self) -> std::io::Result<Option<String>> {
+        let current_len = self.reader.get_ref().metadata()?.len();
 
-    let reader = BufReader::new(file);
-    let lines: Vec<String> = reader.lines().collect::<Result<_, _>>()?;
+        // Hantera om filen trunkerats/roterats
+        if current_len < self.last_pos {
+            self.last_pos = 0;
+            self.reader.seek(SeekFrom::Start(0))?;
+        } else if current_len == self.last_pos {
+            return Ok(None); // Inga nya data
+        }
 
-    Ok(lines.into_iter().rev().find(|line| !line.trim().is_empty()))
-}
+        let mut line = String::new();
+        let bytes_read = self.reader.read_line(&mut line)?;
 
+        // Säkerställ att raden har en radbrytning (är helt färdigskriven)
+        if bytes_read > 0 && line.ends_with('\n') {
+            self.last_pos += bytes_read as u64;
 
-
-
-
-
-pub fn startwatching() -> Result<(), Box<dyn std::error::Error>>
-{
-    let mut newstring: String;
-
-    // 2. Make sure the target file exists
-    //let path = Path::new(TARGET_FILE);
-    //if !path.exists() {
-    //    File::create(path)?;
-    //}
-
-    if exists(TARGET_FILE).expect("REASON")
-    {
-        println!("[Start analyzing: {}]", TARGET_FILE);
-    }
-    else
-    {
-        //println!("Couldnt find file: {}", TARGET_FILE);
-        eprintln!("[Couldnt find file: {}]", TARGET_FILE.red().bold())
-    }
-
-
-    let (tx, rx) = channel();
-    let mut debouncer = new_debouncer(Duration::from_millis(200), None, tx)?;
-    //debouncer.watch(path, RecursiveMode::NonRecursive)?;
-    debouncer.watch(TARGET_FILE, RecursiveMode::NonRecursive)?;
-
-
-    let mut last_line: String;
-
-    for result in rx {
-        match result {
-            Ok(events) => {
-                // Filtrera så att vi ENBART reagerar när faktiskt innehåll/data ändras
-                let is_modified = events
-                .iter()
-                .any(|event| matches!(event.kind, EventKind::Modify(_)));
-
-                if is_modified {
-                    //match read_last_line(path) {
-                    match read_last_line(TARGET_FILE) {
-                            Ok(Some(line)) => {
-                            last_line = line;
-                            //analyzestring(&last_line, fifo_pipe);
-
-                            //let newstring = formatstring(&last_line);
-                            //analyzestring(&newstring);
-                            analyzestring(&last_line);
-                        }
-                        Ok(None) => println!("The file is empty."),
-                        Err(e) => eprintln!("Error reading: {}", e),
-                    }
-                }
+            // Ta bort radbrytningen i slutet
+            if line.ends_with("\r\n") {
+                line.truncate(line.len() - 2);
+            } else {
+                line.truncate(line.len() - 1);
             }
-            Err(errors) => {
-                for err in errors {
-                    eprintln!("Debounce error: {:?}", err);
-                }
-            }
+
+            Ok(Some(line))
+        } else {
+            // Raden är inte färdigskriven än (partiell skrivning)
+            // Backa tillbaka så vi kan läsa om den när hela raden finns
+            self.reader.seek(SeekFrom::Start(self.last_pos))?;
+            Ok(None)
         }
     }
-
-    Ok(())
 }
-
-
