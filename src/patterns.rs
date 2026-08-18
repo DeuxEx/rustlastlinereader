@@ -16,8 +16,8 @@ const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade
 pub fn kor_analys() {
     let conf = CONFIG.get().unwrap();
 
-    println!("Startar analys för fil: {}", conf.target_file);
-    println!("FIFO-pipe som används: {}", conf.fifo_pipe);
+    println!("Starting analysis for file: {}", conf.target_file);
+    println!("FIFO-pipe in use: {}", conf.fifo_pipe);
 
 }
 

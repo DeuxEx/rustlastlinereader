@@ -21,6 +21,9 @@ use nix::unistd::mkfifo;
 use std::io::{BufRead, BufReader, Seek, SeekFrom, Write};
 use std::path::Path;
 
+use std::path::PathBuf;
+use std::env;
+
 
 use std::{
     array,
@@ -84,8 +87,23 @@ impl Config {
 
 
 
+
+fn startbanner()
+{
+    println!("┌────────────────────────────────────────┐");
+    println!("│         DEUX FILE READER 0.1           │");
+    println!("└────────────────────────────────────────┘");
+}
+
+
+
+
 fn populateconfigstruct() {
     //this is a routine for sharing struct data between all .rs files.
+
+    startbanner();
+
+
     // 1. Läs in inifilen
     let configfile = "config.ini";
 
@@ -119,6 +137,7 @@ fn main() -> std::io::Result<()> {
     loop {
         if let Some(line) = tailer.read_next_new_line()? {
             println!("Ny rad: {}", line);
+            findpatterns(&line);
         }
 
         std::thread::sleep(std::time::Duration::from_millis(100));
