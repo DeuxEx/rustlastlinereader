@@ -4,8 +4,12 @@
 
 use colored::Colorize;
 
+use nix::libc::{EXIT_FAILURE, exit};
 use serde::Deserialize;
 use std::fs::{self, exists};
+
+use std::process;
+use std::sync::OnceLock;
 
 use crate::CONFIG;
 
@@ -15,15 +19,26 @@ use crate::CONFIG;
 pub struct Config {
     pub target_file: String,
     pub fifo_pipe: String,
+    pub blockentries: String,
     // dina övriga variabler...
 }
 
 
 
+
+
+// 4. Accessing from any other function in your code:
+pub fn print_target() {
+    let cfg = CONFIG.get().expect("Config is not initialized!");
+    println!("Target path: {}", cfg.target_file);
+    println!("Block entries: {}", cfg.blockentries);
+}
+
+
+
+
 pub fn populateconfigstruct() {
     //this is a routine for sharing struct data between all .rs files.
-
-
     // 1. Läs in inifilen
     let configfile = "config.ini";
 
@@ -35,11 +50,13 @@ pub fn populateconfigstruct() {
         // 3. ANROPA funktionen från den andra filen!
         //patterns::kor_analys();
 
-
+        //In Rust, accessing a String field directly without & transfers ownership out of the struct.
+        //Once a field is moved, the struct becomes partially invalid and you cannot borrow from it anymore.
     }
     else
     {
         eprintln!("[File doesnt exists: {}]", configfile.red().bold());
+        process::exit(0x0100);
     }
 }
 
@@ -51,6 +68,7 @@ impl Config {
 
         let mut target_file = String::new();
         let mut fifo_pipe = String::new();
+        let mut blockentries = String::new();
 
         for line in content.lines() {
             let line = line.trim();
@@ -62,6 +80,7 @@ impl Config {
                 match key.trim() {
                     "target_file" => target_file = value.trim().to_string(),
                     "fifo_pipe" => fifo_pipe = value.trim().to_string(),
+                    "blockentries" => blockentries = value.trim().to_string(),
                     _ => {}
                 }
             }
@@ -70,6 +89,7 @@ impl Config {
         Ok(Config {
             target_file,
             fifo_pipe,
+            blockentries,
         })
     }
 }

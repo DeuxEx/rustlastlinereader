@@ -9,7 +9,7 @@ mod filewatching;
 use filewatching::{LineTailer};
 
 mod inifilereader;
-use inifilereader::{populateconfigstruct,Config};
+use inifilereader::{populateconfigstruct,Config, print_target};
 
 mod pipe;
 use pipe::{ensure_fifo_exists, send_to_pipe};
@@ -19,11 +19,8 @@ use std::fs::{self, exists};
 use nix::{libc::file_handle, sys::stat::Mode};
 use nix::unistd::mkfifo;
 
-
-
 use std::path::PathBuf;
 use std::env;
-
 
 use std::{
     array,
@@ -45,19 +42,31 @@ use colored::*;
 
 
 
-
-
-
+fn showbanner()
+{
+        println!("╔═══════════════════════════════════════════════════════════════════════════════════════╗");
+        println!("║ Duxes File matching explorer for EU                                             [2026]║");
+        println!("╚═══════════════════════════════════════════════════════════════════════════════════════╝");
+}
 
 
 
 fn main() -> std::io::Result<()> {
+    showbanner();
     //this is a routine for sharing struct data between all .rs files.
     populateconfigstruct();
+
+    //print_target();
+    let cfg = CONFIG.get().expect("Config is not initialized!");
+
+    println!("blockentries: {}", cfg.blockentries);
+    println!("targetfile: {}", cfg.target_file);
+
 
 
     // 1. Skapa tailern en gång (startar i slutet av filen)
     let mut tailer = LineTailer::new(TARGET_FILE)?;
+    //let mut tailer = LineTailer::new(cfg.target_file.clone())?;
 
     // 2. Anropa i en loop eller vid event
     loop {
