@@ -70,8 +70,8 @@ fn main() -> std::io::Result<()> {
 
 
     // 1. Skapa tailern en gång (startar i slutet av filen)
-    //let mut tailer = LineTailer::new(TARGET_FILE)?;
-    let mut tailer = LineTailer::new(cfg.target_file.clone())?;
+    let mut tailer = LineTailer::new(TARGET_FILE)?;
+    //let mut tailer = LineTailer::new(cfg.target_file.clone())?;
 
     // 2. Anropa i en loop eller vid event
     loop {
