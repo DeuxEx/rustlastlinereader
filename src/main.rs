@@ -9,7 +9,7 @@ mod filewatching;
 use filewatching::{LineTailer};
 
 mod inifilereader;
-use inifilereader::{populateconfigstruct,Config, print_target};
+use inifilereader::{populateconfigstruct, Config, print_target};
 
 mod pipe;
 use pipe::{ensure_fifo_exists, send_to_pipe};
@@ -29,11 +29,14 @@ use std::{
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
+static VERSION: &str = "0.11";
 
 
 //this is a routine for sharing struct data between all .rs files.
 use std::sync::OnceLock;
 pub static CONFIG: OnceLock<Config> = OnceLock::new();
+
+
 
 static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
 
@@ -42,10 +45,12 @@ use colored::*;
 
 
 
+
+
 fn showbanner()
 {
         println!("╔═══════════════════════════════════════════════════════════════════════════════════════╗");
-        println!("║ Duxes File matching explorer for EU                                             [2026]║");
+        println!("║ Duxes File matching explorer for EU                  v. {}                    [2026]║", VERSION);
         println!("╚═══════════════════════════════════════════════════════════════════════════════════════╝");
 }
 
@@ -65,8 +70,8 @@ fn main() -> std::io::Result<()> {
 
 
     // 1. Skapa tailern en gång (startar i slutet av filen)
-    let mut tailer = LineTailer::new(TARGET_FILE)?;
-    //let mut tailer = LineTailer::new(cfg.target_file.clone())?;
+    //let mut tailer = LineTailer::new(TARGET_FILE)?;
+    let mut tailer = LineTailer::new(cfg.target_file.clone())?;
 
     // 2. Anropa i en loop eller vid event
     loop {

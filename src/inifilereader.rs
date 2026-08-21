@@ -15,6 +15,7 @@ use crate::CONFIG;
 
 
 
+
 #[derive(Debug, Deserialize)]
 pub struct Config {
     pub target_file: String,
@@ -38,9 +39,16 @@ pub fn print_target() {
 
 
 pub fn populateconfigstruct() {
+
+    let path = std::env::current_dir();
+    println!("{}", path.expect("REASON").display());
+
     //this is a routine for sharing struct data between all .rs files.
     // 1. Läs in inifilen
     let configfile = "config.ini";
+    //let configfile = "{}/config.ini",path.expect("REASON").display();
+
+
 
     if exists(configfile).expect("REASON")
     {
