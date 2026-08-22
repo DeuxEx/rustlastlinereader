@@ -9,10 +9,12 @@ use crate::{CONFIG, filewatching::LineTailer}; // Ger tillgång till den globala
 
 //ansi colors and details on text
 use colored::*;
+
 //use nix::libc::int32_t;
 use std::i32;
 use serde::Deserialize;
 
+use regex::Regex;
 
 use crate::COLLECTEDDATA;
 
@@ -79,20 +81,9 @@ pub fn findpatterns(line: &str) {
         // 2026-08-07 15:26:00 [System] [] Critical hit - Additional damage! You inflicted 281.9 points of damage
         if line.contains("You inflicted")
         {
-            // Extrahera decimaltalet direkt mellan "inflicted" och "points"
-            if let Some((_, after_inflicted)) = line.split_once("inflicted")
-            {
-                if let Some((between, _)) = after_inflicted.split_once("points")
-                {
-                    if let Ok(damage) = between.trim().parse::<f32>()
-                    {
-                        // Här har du ditt decimaltal i variabeln `damage` (f64)
-                        //println!("Skada: {}", damage);
-
-                        let incoming_hits: f32 = damage;
-
-
-                        // 3. Mutate the struct fields directly
+            if let Some((_, after_inflicted)) = line.split_once("You inflicted ") {
+                if let Some((between, _)) = after_inflicted.split_once(" points") {
+                    if let Ok(damage) = between.trim().parse::<f32>() {
                         data.totaldamage += damage;
                         data.lastdamage = damage;
 
@@ -100,34 +91,29 @@ pub fn findpatterns(line: &str) {
                     }
                 }
             }
+
         }
 
 
         // 2026-08-07 15:25:10 [System] [] You received Enhanced Adaptive Fuse x (6) Value: 7.02 PED
-        // 2026-08-07 15:26:06 [System] [] You have gained 0.0041 experience in your Wounding skill
-        if line.contains("You received")
-        {
-            // Extrahera decimaltalet direkt mellan "received" och "PED"
-            if let Some((_, after_received)) = line.split_once("received")
-            {
-                if let Some((between, _)) = after_received.split_once("PED")
-                {
-                    if let Ok(pedreceived) = between.trim().parse::<f32>()
-                    {
-                        // Här har du ditt decimaltal i variabeln `damage` (f64)
-                        //println!("Skada: {}", damage);
+        if line.contains("You received") {
+            // Söker efter ett decimaltal direkt följt av (eller nära) "PED"
+            let re = Regex::new(r"(\d+\.\d+)\s*PED").unwrap();
 
-                        let incoming_peds: f32 = pedreceived;
+            if let Some(captures) = re.captures(line) {
+                // Hämta själva talet (första capture-gruppen)
+                if let Some(matched) = captures.get(1) {
+                    if let Ok(number) = matched.as_str().parse::<f32>() {
+                        data.totallootvalue += number;
+                        data.lastlootvalue = number;
 
-                        // 3. Mutate the struct fields directly
-                        data.totallootvalue += pedreceived;
-                        data.lastlootvalue = pedreceived;
-
-                        println!("Current ped: {:.1} | Total so far: {:.1}", data.lastlootvalue, data.totallootvalue);
+                        println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
                     }
                 }
             }
         }
+
+        // 2026-08-07 15:26:06 [System] [] You have gained 0.0041 experience in your Wounding skill
     }
 
 

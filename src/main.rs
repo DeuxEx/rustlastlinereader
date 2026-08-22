@@ -29,7 +29,7 @@ use std::{
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-static VERSION: &str = "0.11";
+static VERSION: &str = "0.12";
 
 
 //this is a routine for sharing struct data between all .rs files.
