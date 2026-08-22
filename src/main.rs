@@ -35,6 +35,7 @@ static VERSION: &str = "0.11";
 //this is a routine for sharing struct data between all .rs files.
 use std::sync::OnceLock;
 pub static CONFIG: OnceLock<Config> = OnceLock::new();
+pub static COLLECTEDDATA: OnceLock<CollectedData> = OnceLock::new();
 
 
 
@@ -42,6 +43,8 @@ static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipe
 
 //ansi colors and details on text
 use colored::*;
+
+use crate::patterns::CollectedData;
 
 
 

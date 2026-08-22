@@ -21,7 +21,6 @@ pub struct Config {
     pub target_file: String,
     pub fifo_pipe: String,
     pub blockentries: String,
-    // dina övriga variabler...
 }
 
 
@@ -80,9 +79,7 @@ impl Config {
 
         for line in content.lines() {
             let line = line.trim();
-            if line.is_empty() || line.starts_with('=') || line.starts_with('[') {
-                continue;
-            }
+            if line.is_empty() || line.starts_with('=') || line.starts_with('[') {continue;}
 
             if let Some((key, value)) = line.split_once('=') {
                 match key.trim() {
