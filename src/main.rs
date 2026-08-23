@@ -79,7 +79,7 @@ fn main() -> std::io::Result<()> {
     // 2. Anropa i en loop eller vid event
     loop {
         if let Some(line) = tailer.read_next_new_line()? {
-            println!("Ny rad: {}", line);
+            //println!("Ny rad: {}", line);
             findpatterns(&line);
         }
 

@@ -20,7 +20,7 @@ use crate::COLLECTEDDATA;
 
 
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
-const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade", "#Rookie"];
+const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade", "Rookie"];
 
 
 
@@ -71,7 +71,6 @@ pub fn findpatterns(line: &str) {
         //println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
         let newstring = formatstring(line);
         println!("{}",newstring);
-        return;
     }
 
 
@@ -82,7 +81,7 @@ pub fn findpatterns(line: &str) {
         if line.contains("You inflicted")
         {
             if let Some((_, after_inflicted)) = line.split_once("You inflicted ") {
-                if let Some((between, _)) = after_inflicted.split_once(" points") {
+                if let Some((between, _)) = after_inflicted.split_once("points") {
                     if let Ok(damage) = between.trim().parse::<f32>() {
                         data.totaldamage += damage;
                         data.lastdamage = damage;
@@ -91,7 +90,6 @@ pub fn findpatterns(line: &str) {
                     }
                 }
             }
-
         }
 
 
@@ -118,12 +116,12 @@ pub fn findpatterns(line: &str) {
 
 
     //Globalevent
-    if line.contains("[Global]") {
+    if line.contains("[Global]")
+    {
         // [Globals] [] Deux Pelleman Ex killed a creature (Araneatrox Prowler) with a value of 120 PED!
 
         let newstring = formatstring(line);
         println!("{}",newstring);
-        return;
     }
 }
 
