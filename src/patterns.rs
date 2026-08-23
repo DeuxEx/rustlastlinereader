@@ -70,7 +70,7 @@ pub fn findpatterns(line: &str) {
     {
         //println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
         let newstring = formatstring(line);
-        println!("{}",newstring);
+        println!("{}",newstring.green().bold());
     }
 
 
