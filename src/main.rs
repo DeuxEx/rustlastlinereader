@@ -29,22 +29,31 @@ use std::{
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-static VERSION: &str = "0.12";
+static VERSION: &str = "0.13";
 
 
 //this is a routine for sharing struct data between all .rs files.
 use std::sync::OnceLock;
 pub static CONFIG: OnceLock<Config> = OnceLock::new();
-pub static COLLECTEDDATA: OnceLock<CollectedData> = OnceLock::new();
+
+use std::sync::Mutex;
+pub static COLLECTEDDATA: OnceLock<Mutex<CollectedData>> = OnceLock::new();
 
 
+#[derive(Debug, Default)]
+pub struct CollectedData {
+    pub totaldamage: f32,
+    pub lastdamage: f32,
+    pub totallootvalue: f32,
+    pub lastlootvalue: f32,
+    //pub totalhealpoints: f32,
+    //pub lasthealpoints: f32,
+}
 
 static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
 
 //ansi colors and details on text
 use colored::*;
-
-use crate::patterns::CollectedData;
 
 
 
@@ -70,20 +79,22 @@ fn main() -> std::io::Result<()> {
     println!("blockentries: {}", cfg.blockentries);
     println!("targetfile: {}", cfg.target_file);
 
+    // 1. Create a mutable instance OUTSIDE the loop
+    let data = CollectedData::default();
 
 
     // 1. Skapa tailern en gång (startar i slutet av filen)
     let mut tailer = LineTailer::new(TARGET_FILE)?;
-    //let mut tailer = LineTailer::new(cfg.target_file.clone())?;
+
 
     // 2. Anropa i en loop eller vid event
     loop {
         if let Some(line) = tailer.read_next_new_line()? {
-            println!("{}", line);
+            //println!("{}", line);
             findpatterns(&line);
         }
 
-        std::thread::sleep(std::time::Duration::from_millis(10));
+        std::thread::sleep(std::time::Duration::from_millis(1));
     }
 }
 

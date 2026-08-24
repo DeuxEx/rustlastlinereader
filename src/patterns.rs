@@ -7,16 +7,20 @@
 
 use crate::{CONFIG, filewatching::LineTailer}; // Ger tillgång till den globala CONFIG
 
+use crate::CollectedData;
+use crate::COLLECTEDDATA;
+
+
 //ansi colors and details on text
 use colored::*;
 
 //use nix::libc::int32_t;
 use std::i32;
+use std::sync::Mutex;
 use serde::Deserialize;
 
 use regex::Regex;
 
-use crate::COLLECTEDDATA;
 
 
 static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
@@ -24,16 +28,6 @@ const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade
 
 
 
-
-#[derive(Debug, Default)]
-pub struct CollectedData {
-    pub totaldamage: f32,
-    pub lastdamage: f32,
-    pub totallootvalue: f32,
-    pub lastlootvalue: f32,
-    //pub totalhealpoints: f32,
-    //pub lasthealpoints: f32,
-}
 
 
 
@@ -50,8 +44,13 @@ pub fn kor_analys() {
 pub fn findpatterns(line: &str) {
 
     // 1. Create a mutable instance OUTSIDE the loop
-    let mut data = CollectedData::default();
+    //let mut data = CollectedData::default();
+    let collected_data: &Mutex<CollectedData> = COLLECTEDDATA.get().expect("Config is not initialized!");
 
+
+    // 1. Hämta Mutexen från OnceLock
+    // 2. Lås mutexen för att få muterbar åtkomst
+    let mut collected_data = collected_data.lock().unwrap();
 
 
     //Blocked entries
@@ -64,6 +63,7 @@ pub fn findpatterns(line: &str) {
             return;
         }
     }
+
 
     // 1. Sök efter avatarnamn
     if line.contains(AVATAR)
@@ -80,13 +80,16 @@ pub fn findpatterns(line: &str) {
         // 2026-08-07 15:26:00 [System] [] Critical hit - Additional damage! You inflicted 281.9 points of damage
         if line.contains("You inflicted")
         {
+            let newstring = formatstring(line);
+            println!("{}",newstring);
+
             if let Some((_, after_inflicted)) = line.split_once("You inflicted ") {
                 if let Some((between, _)) = after_inflicted.split_once("points") {
                     if let Ok(damage) = between.trim().parse::<f32>() {
-                        data.totaldamage += damage;
-                        data.lastdamage = damage;
+                        collected_data.totaldamage += damage;
+                        collected_data.lastdamage = damage;
 
-                        println!("Current hit: {:.1} | Total so far: {:.1}", data.lastdamage, data.totaldamage);
+                        println!("Current hit: {:.1} | Total so far: {:.1}", collected_data.lastdamage, collected_data.totaldamage);
                     }
                 }
             }
@@ -95,6 +98,10 @@ pub fn findpatterns(line: &str) {
 
         // 2026-08-07 15:25:10 [System] [] You received Enhanced Adaptive Fuse x (6) Value: 7.02 PED
         if line.contains("You received") {
+
+            let newstring = formatstring(line);
+            println!("{}",newstring);
+
             // Söker efter ett decimaltal direkt följt av (eller nära) "PED"
             let re = Regex::new(r"(\d+\.\d+)\s*PED").unwrap();
 
@@ -102,10 +109,10 @@ pub fn findpatterns(line: &str) {
                 // Hämta själva talet (första capture-gruppen)
                 if let Some(matched) = captures.get(1) {
                     if let Ok(number) = matched.as_str().parse::<f32>() {
-                        data.totallootvalue += number;
-                        data.lastlootvalue = number;
+                        collected_data.totallootvalue += number;
+                        collected_data.lastlootvalue = number;
 
-                        println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
+                        println!("Current ped: {:.2} | Total so far: {:.2}", collected_data.lastlootvalue, collected_data.totallootvalue);
                     }
                 }
             }
@@ -152,11 +159,25 @@ pub fn formatstring(line: &str) -> String
     // 1. Skapa en muterbar (föränderlig) String från input
     let mut newline = line.to_string();
 
-    // 2. Ersätt text direkt i vår föränderliga 'newline'
+
     if newline.contains("&quot;")
     {
-        newline = newline.replace("&quot;", "'");
+        newline = newline.replace("&quot;", "\"");
     }
+
+
+    if newline.contains("&lt;")
+    {
+        newline = newline.replace("&lt;", "<");
+    }
+
+
+
+    if newline.contains("&gt;")
+    {
+        newline = newline.replace("&gt;", ">");
+    }
+
 
     // .split_off(20) returnerar allt FRÅN tecken 20 och framåt.
     // Vi sparar den delen i newline och kastar därmed bort de första 20.
