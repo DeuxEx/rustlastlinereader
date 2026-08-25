@@ -21,6 +21,7 @@ pub struct Config {
     pub target_file: String,
     pub fifo_pipe: String,
     pub blockentries: String,
+    //pub ammoburn: i32,
 }
 
 
@@ -45,7 +46,6 @@ pub fn populateconfigstruct() {
     //this is a routine for sharing struct data between all .rs files.
     // 1. Läs in inifilen
     let configfile = "config.ini";
-    //let configfile = "{}/config.ini",path.expect("REASON").display();
 
 
 
@@ -76,6 +76,7 @@ impl Config {
         let mut target_file = String::new();
         let mut fifo_pipe = String::new();
         let mut blockentries = String::new();
+        //let mut ammoburn: i32 = new();
 
         for line in content.lines() {
             let line = line.trim();
@@ -86,6 +87,7 @@ impl Config {
                     "target_file" => target_file = value.trim().to_string(),
                     "fifo_pipe" => fifo_pipe = value.trim().to_string(),
                     "blockentries" => blockentries = value.trim().to_string(),
+                    //"ammoburn" => ammoburn = value::i32,
                     _ => {}
                 }
             }
@@ -95,6 +97,7 @@ impl Config {
             target_file,
             fifo_pipe,
             blockentries,
+            //ammoburn,
         })
     }
 }
