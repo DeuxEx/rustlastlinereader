@@ -14,7 +14,6 @@ use crate::COLLECTEDDATA;
 //ansi colors and details on text
 use colored::*;
 
-//use nix::libc::int32_t;
 use std::i32;
 use std::sync::Mutex;
 use serde::Deserialize;
@@ -43,10 +42,8 @@ pub fn kor_analys() {
 pub fn findpatterns(line: &str) {
 
     // 1. Create a mutable instance OUTSIDE the loop
-    //let collected_data: &Mutex<CollectedData> = COLLECTEDDATA.get().expect("Config is not initialized!");
     // 1. Hämta Mutexen från OnceLock
     // 2. Lås mutexen för att få muterbar åtkomst
-    //let mut collected_data = collected_data.lock().unwrap();
     let collected_data = COLLECTEDDATA.get().expect("Config is not initialized!");
     let mut data = collected_data.lock().unwrap();
 
@@ -102,9 +99,9 @@ pub fn findpatterns(line: &str) {
             println!("{}",newstring);
 
             // Söker efter ett decimaltal direkt följt av (eller nära) "PED"
-            let re = Regex::new(r"(\d+\.\d+)\s*PED").unwrap();
+            let searchstring = Regex::new(r"(\d+\.\d+)\s*PED").unwrap();
 
-            if let Some(captures) = re.captures(line) {
+            if let Some(captures) = searchstring.captures(line) {
                 // Hämta själva talet (första capture-gruppen)
                 if let Some(matched) = captures.get(1) {
                     if let Ok(number) = matched.as_str().parse::<f32>() {
@@ -112,7 +109,7 @@ pub fn findpatterns(line: &str) {
                         data.lastlootvalue = number;
 
                         println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
-                        println!("Shots on last mob: {}", data.lastmobshots);
+                        if(data.lastmobshots >0){println!("Shots on last mob: {}", data.lastmobshots);}
                         //i samband med detta så resettar vi lastlootvalue så vi får en hyfsad sann bild av mob_cost_to_kill
                         //det kan slå på några loot-rader men killcosten borde blir ganska exakt, det är lootvärdet som kan slå lite.
                         data.lastlootvalue = 0.0;

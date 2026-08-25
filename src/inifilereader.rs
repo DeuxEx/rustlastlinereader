@@ -21,7 +21,7 @@ pub struct Config {
     pub target_file: String,
     pub fifo_pipe: String,
     pub blockentries: String,
-    //pub ammoburn: i32,
+    pub ammoburn: String,
 }
 
 
@@ -33,6 +33,7 @@ pub fn print_target() {
     let cfg = CONFIG.get().expect("Config is not initialized!");
     println!("Target path: {}", cfg.target_file);
     println!("Block entries: {}", cfg.blockentries);
+    println!("Ammoburn: {}", cfg.ammoburn);
 }
 
 
@@ -76,7 +77,7 @@ impl Config {
         let mut target_file = String::new();
         let mut fifo_pipe = String::new();
         let mut blockentries = String::new();
-        //let mut ammoburn: i32 = new();
+        let mut ammoburn = String::new();
 
         for line in content.lines() {
             let line = line.trim();
@@ -87,7 +88,7 @@ impl Config {
                     "target_file" => target_file = value.trim().to_string(),
                     "fifo_pipe" => fifo_pipe = value.trim().to_string(),
                     "blockentries" => blockentries = value.trim().to_string(),
-                    //"ammoburn" => ammoburn = value::i32,
+                    "ammoburn" => ammoburn = value.trim().to_string(),
                     _ => {}
                 }
             }
@@ -97,7 +98,7 @@ impl Config {
             target_file,
             fifo_pipe,
             blockentries,
-            //ammoburn,
+            ammoburn,
         })
     }
 }

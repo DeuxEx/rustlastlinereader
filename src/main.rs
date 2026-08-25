@@ -99,8 +99,8 @@ fn main() -> std::io::Result<()> {
 
     // Loopa igenom radläsning från slutet med 1ms fördröjning
     loop {
-        if let Some(line) = tailer.read_next_new_line()? {
-            //println!("{}", line);
+        if let Some(line) = tailer.read_next_new_line()?
+        {
             findpatterns(&line);
         }
 
