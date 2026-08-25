@@ -46,8 +46,9 @@ pub struct CollectedData {
     pub lastdamage: f32,
     pub totallootvalue: f32,
     pub lastlootvalue: f32,
-    //pub totalhealpoints: f32,
-    //pub lasthealpoints: f32,
+    pub totalshots: i32,
+    pub lastmobshots: i32,
+    //pub ammoburn: i32,
 }
 
 static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
@@ -90,8 +91,6 @@ fn main() -> std::io::Result<()> {
     COLLECTEDDATA
     .set(Mutex::new(data))
     .expect("Failed to initialize COLLECTEDDATA");
-
-
 
 
 
