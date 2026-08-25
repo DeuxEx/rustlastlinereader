@@ -83,7 +83,16 @@ fn main() -> std::io::Result<()> {
     println!("targetfile: {}", cfg.target_file);
 
     // Create a mutable instance OUTSIDE the loop
+    // 1. FIRST: Initialize and set the global variable
     let data = CollectedData::default();
+
+
+    COLLECTEDDATA
+    .set(Mutex::new(data))
+    .expect("Failed to initialize COLLECTEDDATA");
+
+
+
 
 
     // Skapa tailern en gång (startar i slutet av filen)

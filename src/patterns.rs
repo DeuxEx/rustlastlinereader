@@ -44,14 +44,12 @@ pub fn kor_analys() {
 pub fn findpatterns(line: &str) {
 
     // 1. Create a mutable instance OUTSIDE the loop
-    //let mut data = CollectedData::default();
-    let collected_data: &Mutex<CollectedData> = COLLECTEDDATA.get().expect("Config is not initialized!");
-
-
+    //let collected_data: &Mutex<CollectedData> = COLLECTEDDATA.get().expect("Config is not initialized!");
     // 1. Hämta Mutexen från OnceLock
     // 2. Lås mutexen för att få muterbar åtkomst
-    let mut collected_data = collected_data.lock().unwrap();
-
+    //let mut collected_data = collected_data.lock().unwrap();
+    let collected_data = COLLECTEDDATA.get().expect("Config is not initialized!");
+    let mut data = collected_data.lock().unwrap();
 
     //Blocked entries
     for blocks in BLOCKMATCH
@@ -86,10 +84,10 @@ pub fn findpatterns(line: &str) {
             if let Some((_, after_inflicted)) = line.split_once("You inflicted ") {
                 if let Some((between, _)) = after_inflicted.split_once("points") {
                     if let Ok(damage) = between.trim().parse::<f32>() {
-                        collected_data.totaldamage += damage;
-                        collected_data.lastdamage = damage;
+                        data.totaldamage += damage;
+                        data.lastdamage = damage;
 
-                        println!("Current hit: {:.1} | Total so far: {:.1}", collected_data.lastdamage, collected_data.totaldamage);
+                        println!("Current hit: {:.1} | Total so far: {:.1}", data.lastdamage, data.totaldamage);
                     }
                 }
             }
@@ -109,13 +107,13 @@ pub fn findpatterns(line: &str) {
                 // Hämta själva talet (första capture-gruppen)
                 if let Some(matched) = captures.get(1) {
                     if let Ok(number) = matched.as_str().parse::<f32>() {
-                        collected_data.totallootvalue += number;
-                        collected_data.lastlootvalue = number;
+                        data.totallootvalue += number;
+                        data.lastlootvalue = number;
 
-                        println!("Current ped: {:.2} | Total so far: {:.2}", collected_data.lastlootvalue, collected_data.totallootvalue);
+                        println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
                         //i samband med detta så resettar vi lastlootvalue så vi får en hyfsad sann bild av mob_cost_to_kill
                         //det kan slå på några loot-rader men killcosten borde blir ganska exakt, det är lootvärdet som kan slå lite.
-                        collected_data.lastlootvalue = 0.0;
+                        data.lastlootvalue = 0.0;
                     }
                 }
             }
