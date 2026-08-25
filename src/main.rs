@@ -29,7 +29,7 @@ use std::{
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-static VERSION: &str = "0.13";
+static VERSION: &str = "0.14";
 
 
 //this is a routine for sharing struct data between all .rs files.
@@ -69,25 +69,28 @@ fn showbanner()
 
 
 fn main() -> std::io::Result<()> {
+
+    //show startbanner
     showbanner();
+
     //this is a routine for sharing struct data between all .rs files.
     populateconfigstruct();
 
-    //print_target();
+    //Get the config struct variables
     let cfg = CONFIG.get().expect("Config is not initialized!");
 
     println!("blockentries: {}", cfg.blockentries);
     println!("targetfile: {}", cfg.target_file);
 
-    // 1. Create a mutable instance OUTSIDE the loop
+    // Create a mutable instance OUTSIDE the loop
     let data = CollectedData::default();
 
 
-    // 1. Skapa tailern en gång (startar i slutet av filen)
+    // Skapa tailern en gång (startar i slutet av filen)
     let mut tailer = LineTailer::new(TARGET_FILE)?;
 
 
-    // 2. Anropa i en loop eller vid event
+    // Loopa igenom radläsning från slutet med 1ms fördröjning
     loop {
         if let Some(line) = tailer.read_next_new_line()? {
             //println!("{}", line);

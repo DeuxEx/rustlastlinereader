@@ -113,6 +113,9 @@ pub fn findpatterns(line: &str) {
                         collected_data.lastlootvalue = number;
 
                         println!("Current ped: {:.2} | Total so far: {:.2}", collected_data.lastlootvalue, collected_data.totallootvalue);
+                        //i samband med detta så resettar vi lastlootvalue så vi får en hyfsad sann bild av mob_cost_to_kill
+                        //det kan slå på några loot-rader men killcosten borde blir ganska exakt, det är lootvärdet som kan slå lite.
+                        collected_data.lastlootvalue = 0.0;
                     }
                 }
             }
