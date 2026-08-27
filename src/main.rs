@@ -9,7 +9,8 @@ mod filewatching;
 use filewatching::{LineTailer};
 
 mod inifilereader;
-use inifilereader::{populateconfigstruct, Config, print_target};
+//use inifilereader::{populateconfigstruct, Config, print_target};
+use inifilereader::{populateconfigstruct, print_target};
 
 mod pipe;
 use pipe::{ensure_fifo_exists, send_to_pipe};
@@ -22,6 +23,8 @@ use nix::unistd::mkfifo;
 use std::path::PathBuf;
 use std::env;
 
+use serde::Deserialize;
+
 use std::{
     array,
     fs::{File, OpenOptions},
@@ -29,7 +32,7 @@ use std::{
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-static VERSION: &str = "0.15";
+static VERSION: &str = "0.16";
 
 
 //this is a routine for sharing struct data between all .rs files.
@@ -50,6 +53,19 @@ pub struct CollectedData {
     pub lastmobshots: i32,
     pub numberofkills: i32,
 }
+
+
+#[derive(Debug, Deserialize)]
+pub struct Config {
+    // Store runtime paths as PathBuf
+    pub target_file: PathBuf,
+    pub fifo_pipe: PathBuf,
+    pub blockentries: PathBuf,
+    pub ammoburn: PathBuf,
+    pub usecost: PathBuf,
+}
+
+
 
 static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
 

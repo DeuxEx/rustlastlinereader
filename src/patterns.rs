@@ -5,7 +5,10 @@
 #![allow(unused)]
 
 
-use crate::{CONFIG, filewatching::LineTailer}; // Ger tillgång till den globala CONFIG
+//use crate::{CONFIG, filewatching::LineTailer}; // Ger tillgång till den globala CONFIG
+use crate::CONFIG;
+
+
 
 use crate::CollectedData;
 use crate::COLLECTEDDATA;
@@ -34,10 +37,10 @@ pub fn kor_analys() {
     let config = CONFIG.get().unwrap().lock().unwrap();
 
     // Open the file dynamically using the runtime path
-    if let Ok(content) = std::fs::read_to_string(&config.target_file) {
+    if let Ok(content) = std::fs::read_to_string(&config.target_file)
+    {
         println!("Successfully read {} bytes", content.len());
     }
-
 
     println!("Starting analysis for file: {}", config.target_file.display());
     println!("FIFO-pipe in use: {}", config.fifo_pipe.display());
@@ -123,7 +126,7 @@ pub fn findpatterns(line: &str) {
                                 println!("----------------------------------");
                                 println!("Shots on last mob: {}", data.lastmobshots);
                                 println!("Number of kills: {}", data.numberofkills);
-                                //println!("Killcost: {}",data.lastmobshots);
+                                println!("Killcost: {}",data.lastmobshots);
                                 println!("----------------------------------");
                             }
 

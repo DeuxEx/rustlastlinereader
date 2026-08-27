@@ -15,9 +15,10 @@ use std::sync::{OnceLock, Mutex};
 
 use crate::CONFIG;
 
+use crate::Config;
 
 
-
+/*
 #[derive(Debug, Deserialize)]
 pub struct Config {
     // Store runtime paths as PathBuf
@@ -27,7 +28,7 @@ pub struct Config {
     pub ammoburn: PathBuf,
     pub usecost: PathBuf,
 }
-
+*/
 
 
 
@@ -40,13 +41,12 @@ pub fn print_target() {
     // Open the file dynamically using the runtime path
     if let Ok(content) = std::fs::read_to_string(&config.target_file) {
         println!("Successfully read {} bytes", content.len());
+
+        println!("Target path: {}", config.target_file.display());
+        println!("Block entries: {}", config.blockentries.display());
+        println!("Ammoburn: {}", config.ammoburn.display());
+        println!("Usecost: {}", config.usecost.display());
     }
-
-
-    println!("Target path: {}", config.target_file.display());
-    println!("Block entries: {}", config.blockentries.display());
-    println!("Ammoburn: {}", config.ammoburn.display());
-    println!("Usecost: {}", config.usecost.display());
 }
 
 
