@@ -22,6 +22,7 @@ pub struct Config {
     pub fifo_pipe: String,
     pub blockentries: String,
     pub ammoburn: String,
+    pub usecost: String,
 }
 
 
@@ -78,6 +79,7 @@ impl Config {
         let mut fifo_pipe = String::new();
         let mut blockentries = String::new();
         let mut ammoburn = String::new();
+        let mut usecost = String::new();
 
         for line in content.lines() {
             let line = line.trim();
@@ -89,6 +91,7 @@ impl Config {
                     "fifo_pipe" => fifo_pipe = value.trim().to_string(),
                     "blockentries" => blockentries = value.trim().to_string(),
                     "ammoburn" => ammoburn = value.trim().to_string(),
+                    "usecost" => usecost = value.trim().to_string(),
                     _ => {}
                 }
             }
@@ -99,6 +102,7 @@ impl Config {
             fifo_pipe,
             blockentries,
             ammoburn,
+            usecost,
         })
     }
 }
