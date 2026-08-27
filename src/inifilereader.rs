@@ -9,7 +9,9 @@ use serde::Deserialize;
 use std::fs::{self, exists};
 
 use std::process;
-use std::sync::OnceLock;
+
+use std::path::PathBuf;
+use std::sync::{OnceLock, Mutex};
 
 use crate::CONFIG;
 
@@ -18,11 +20,12 @@ use crate::CONFIG;
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    pub target_file: String,
-    pub fifo_pipe: String,
-    pub blockentries: String,
-    pub ammoburn: String,
-    pub usecost: String,
+    // Store runtime paths as PathBuf
+    pub target_file: PathBuf,
+    pub fifo_pipe: PathBuf,
+    pub blockentries: PathBuf,
+    pub ammoburn: PathBuf,
+    pub usecost: PathBuf,
 }
 
 
@@ -31,10 +34,19 @@ pub struct Config {
 
 // 4. Accessing from any other function in your code:
 pub fn print_target() {
-    let cfg = CONFIG.get().expect("Config is not initialized!");
-    println!("Target path: {}", cfg.target_file);
-    println!("Block entries: {}", cfg.blockentries);
-    println!("Ammoburn: {}", cfg.ammoburn);
+
+    let config = CONFIG.get().unwrap().lock().unwrap();
+
+    // Open the file dynamically using the runtime path
+    if let Ok(content) = std::fs::read_to_string(&config.target_file) {
+        println!("Successfully read {} bytes", content.len());
+    }
+
+
+    println!("Target path: {}", config.target_file.display());
+    println!("Block entries: {}", config.blockentries.display());
+    println!("Ammoburn: {}", config.ammoburn.display());
+    println!("Usecost: {}", config.usecost.display());
 }
 
 
@@ -42,31 +54,22 @@ pub fn print_target() {
 
 pub fn populateconfigstruct() {
 
-    let path = std::env::current_dir();
-    println!("{}", path.expect("REASON").display());
-
     //this is a routine for sharing struct data between all .rs files.
-    // 1. Läs in inifilen
-    let configfile = "config.ini";
 
+    // 1. Read config at startup (runtime)
+    let loaded_path_from_file = String::from("config.ini");
 
-
-    if exists(configfile).expect("REASON")
+    // 2. Populate the global struct
+    let config = Config
     {
-        let conf = Config::from_file("config.ini").unwrap();
-        // 2. Spara i CONFIG
-        CONFIG.set(conf).unwrap();
-        // 3. ANROPA funktionen från den andra filen!
-        //patterns::kor_analys();
+        target_file: PathBuf::from(loaded_path_from_file.clone()),
+        fifo_pipe: PathBuf::from(loaded_path_from_file.clone()),
+        ammoburn: PathBuf::from(loaded_path_from_file.clone()),
+        blockentries: PathBuf::from(loaded_path_from_file.clone()),
+        usecost: PathBuf::from(loaded_path_from_file.clone()),
 
-        //In Rust, accessing a String field directly without & transfers ownership out of the struct.
-        //Once a field is moved, the struct becomes partially invalid and you cannot borrow from it anymore.
-    }
-    else
-    {
-        eprintln!("[File doesnt exists: {}]", configfile.red().bold());
-        process::exit(0x0100);
-    }
+    };
+    CONFIG.set(Mutex::new(config)).ok();
 }
 
 
@@ -98,11 +101,11 @@ impl Config {
         }
 
         Ok(Config {
-            target_file,
-            fifo_pipe,
-            blockentries,
-            ammoburn,
-            usecost,
+            target_file: target_file.into(),
+            fifo_pipe: fifo_pipe.into(),
+            blockentries: blockentries.into(),
+            ammoburn: ammoburn.into(),
+            usecost: usecost.into(),
         })
     }
 }

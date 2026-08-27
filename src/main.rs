@@ -29,12 +29,12 @@ use std::{
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-static VERSION: &str = "0.14";
+static VERSION: &str = "0.15";
 
 
 //this is a routine for sharing struct data between all .rs files.
 use std::sync::OnceLock;
-pub static CONFIG: OnceLock<Config> = OnceLock::new();
+pub static CONFIG: OnceLock<Mutex<Config>> = OnceLock::new();
 
 use std::sync::Mutex;
 pub static COLLECTEDDATA: OnceLock<Mutex<CollectedData>> = OnceLock::new();
@@ -77,21 +77,20 @@ fn main() -> std::io::Result<()> {
     //this is a routine for sharing struct data between all .rs files.
     populateconfigstruct();
 
-    //Get the config struct variables
-    let cfg = CONFIG.get().expect("Config is not initialized!");
 
-    println!("blockentries: {}", cfg.blockentries);
-    println!("targetfile: {}", cfg.target_file);
+    let config = CONFIG.get().unwrap().lock().unwrap();
+
+    // Open the file dynamically using the runtime path
+    if let Ok(content) = std::fs::read_to_string(&config.target_file)
+    {
+        println!("Successfully read {} bytes", content.len());
+    }
+
 
     // Create a mutable instance OUTSIDE the loop
     // 1. FIRST: Initialize and set the global variable
     let data = CollectedData::default();
-
-
-    COLLECTEDDATA
-    .set(Mutex::new(data))
-    .expect("Failed to initialize COLLECTEDDATA");
-
+    COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
     // Skapa tailern en gång (startar i slutet av filen)

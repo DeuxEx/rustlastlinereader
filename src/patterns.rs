@@ -31,10 +31,16 @@ const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade
 
 
 pub fn kor_analys() {
-    let conf = CONFIG.get().unwrap();
+    let config = CONFIG.get().unwrap().lock().unwrap();
 
-    println!("Starting analysis for file: {}", conf.target_file);
-    println!("FIFO-pipe in use: {}", conf.fifo_pipe);
+    // Open the file dynamically using the runtime path
+    if let Ok(content) = std::fs::read_to_string(&config.target_file) {
+        println!("Successfully read {} bytes", content.len());
+    }
+
+
+    println!("Starting analysis for file: {}", config.target_file.display());
+    println!("FIFO-pipe in use: {}", config.fifo_pipe.display());
 }
 
 
