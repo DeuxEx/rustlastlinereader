@@ -77,16 +77,18 @@ pub fn findpatterns(line: &str) {
             let newstring = formatstring(line);
             println!("{}",newstring);
 
-            if let Some((_, after_inflicted)) = line.split_once("You inflicted ") {
-                if let Some((between, _)) = after_inflicted.split_once("points") {
-                    if let Ok(damage) = between.trim().parse::<f32>() {
-                        data.totaldamage += damage;
-                        data.lastdamage = damage;
-
-                        println!("Current hit: {:.1} | Total so far: {:.1}", data.lastdamage, data.totaldamage);
-                        data.totalshots += 1;
-                        data.lastmobshots += 1;
-                    }
+            if let Some((_, after_inflicted)) = line.split_once("You inflicted ")
+            {
+                if let Some((between, _)) = after_inflicted.split_once("points")
+                {
+                    if let Ok(damage) = between.trim().parse::<f32>()
+                        {
+                            data.totaldamage += damage;
+                            data.lastdamage = damage;
+                            data.totalshots += 1;
+                            data.lastmobshots += 1;
+                            println!("Current hit: {:.1} | Total so far: {:.1}", data.lastdamage, data.totaldamage);
+                        }
                 }
             }
         }
@@ -109,7 +111,16 @@ pub fn findpatterns(line: &str) {
                         data.lastlootvalue = number;
 
                         println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
-                        if(data.lastmobshots >0){println!("Shots on last mob: {}", data.lastmobshots);}
+                        if(data.lastmobshots >0)
+                            {
+                                data.numberofkills += 1;
+                                println!("----------------------------------");
+                                println!("Shots on last mob: {}", data.lastmobshots);
+                                println!("Number of kills: {}", data.numberofkills);
+                                //println!("Killcost: {}",data.lastmobshots);
+                                println!("----------------------------------");
+                            }
+
                         //i samband med detta så resettar vi lastlootvalue så vi får en hyfsad sann bild av mob_cost_to_kill
                         //det kan slå på några loot-rader men killcosten borde blir ganska exakt, det är lootvärdet som kan slå lite.
                         data.lastlootvalue = 0.0;

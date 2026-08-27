@@ -48,6 +48,7 @@ pub struct CollectedData {
     pub lastlootvalue: f32,
     pub totalshots: i32,
     pub lastmobshots: i32,
+    pub numberofkills: i32,
 }
 
 static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
