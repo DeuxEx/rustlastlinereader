@@ -28,7 +28,8 @@ pub fn print_target() {
         println!("Successfully read {} bytes", content.len());
 
         println!("Target path: {}", config.target_file.display());
-        println!("Block entries: {}", config.blockentries.display());
+        //println!("Block entries: {}", config.blockentries.display());
+        println!("Block entries: {}", config.blockentries);
         println!("Ammoburn: {}", config.ammoburn);
         println!("Usecost: {}", config.usecost);
     }
@@ -50,7 +51,8 @@ pub fn populateconfigstruct() {
         target_file: PathBuf::from(loaded_path_from_file.clone()),
         fifo_pipe: PathBuf::from(loaded_path_from_file.clone()),
         ammoburn: loaded_path_from_file.parse().unwrap_or(0), // Converts &str to i32 safely with a fallback
-        blockentries: PathBuf::from(loaded_path_from_file.clone()),
+        //blockentries: PathBuf::from(loaded_path_from_file.clone()),
+        blockentries: String::from(loaded_path_from_file.clone()),
         usecost: loaded_path_from_file.parse().unwrap_or(0.0), // Converts &str to f32 safely with a fallback
     };
     CONFIG.set(Mutex::new(config)).ok();
