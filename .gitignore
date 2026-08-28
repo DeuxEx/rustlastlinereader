@@ -1,0 +1,16 @@
+# Exclude a specific configuration file
+#config.ini
+
+# Exclude an entire directory and its contents
+#build/
+#target/
+#node_modules/
+
+# Exclude log files anywhere in the project
+#*.log
+
+# Exclude a specific file inside a folder
+#secrets/api_keys.json
+
+target/debug
+target/CACHEDIR.TAG
