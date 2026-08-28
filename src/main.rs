@@ -9,7 +9,6 @@ mod filewatching;
 use filewatching::{LineTailer};
 
 mod inifilereader;
-//use inifilereader::{populateconfigstruct, Config, print_target};
 use inifilereader::{load_config_file};
 
 mod pipe;
@@ -31,9 +30,7 @@ use std::{
 };
 
 
-
-static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
-static VERSION: &str = "0.16";
+static VERSION: &str = "0.17";
 
 
 //this is a routine for sharing struct data between all .rs files.
@@ -66,13 +63,8 @@ pub struct Config {
 }
 
 
-
-static FIFO_PIPE: &str = "/tmp/min_pipe"; // Variabeln för sökvägen till pipen
-
 //ansi colors and details on text
 use colored::*;
-
-
 
 
 

@@ -56,6 +56,13 @@ pub fn findpatterns(line: &str) {
     let config = config_data.lock().unwrap();
 
 
+    // Nu är CONFIG satt, du kan hämta data så här:
+    // let config = crate::CONFIG.get().unwrap().lock().unwrap();
+    // println!("{:?}", config.target_file);
+
+
+
+
     //Blocked entries
     for blocks in BLOCKMATCH
     {
