@@ -61,8 +61,8 @@ pub struct Config {
     pub target_file: PathBuf,
     pub fifo_pipe: PathBuf,
     pub blockentries: PathBuf,
-    pub ammoburn: PathBuf,
-    pub usecost: PathBuf,
+    pub ammoburn: i32,
+    pub usecost: f32,
 }
 
 

@@ -14,26 +14,11 @@ use std::path::PathBuf;
 use std::sync::{OnceLock, Mutex};
 
 use crate::CONFIG;
-
 use crate::Config;
 
 
-/*
-#[derive(Debug, Deserialize)]
-pub struct Config {
-    // Store runtime paths as PathBuf
-    pub target_file: PathBuf,
-    pub fifo_pipe: PathBuf,
-    pub blockentries: PathBuf,
-    pub ammoburn: PathBuf,
-    pub usecost: PathBuf,
-}
-*/
 
-
-
-
-// 4. Accessing from any other function in your code:
+// Accessing from any other function in your code:
 pub fn print_target() {
 
     let config = CONFIG.get().unwrap().lock().unwrap();
@@ -44,8 +29,8 @@ pub fn print_target() {
 
         println!("Target path: {}", config.target_file.display());
         println!("Block entries: {}", config.blockentries.display());
-        println!("Ammoburn: {}", config.ammoburn.display());
-        println!("Usecost: {}", config.usecost.display());
+        println!("Ammoburn: {}", config.ammoburn);
+        println!("Usecost: {}", config.usecost);
     }
 }
 
@@ -64,10 +49,9 @@ pub fn populateconfigstruct() {
     {
         target_file: PathBuf::from(loaded_path_from_file.clone()),
         fifo_pipe: PathBuf::from(loaded_path_from_file.clone()),
-        ammoburn: PathBuf::from(loaded_path_from_file.clone()),
+        ammoburn: loaded_path_from_file.parse().unwrap_or(0), // Converts &str to i32 safely with a fallback
         blockentries: PathBuf::from(loaded_path_from_file.clone()),
-        usecost: PathBuf::from(loaded_path_from_file.clone()),
-
+        usecost: loaded_path_from_file.parse().unwrap_or(0.0), // Converts &str to f32 safely with a fallback
     };
     CONFIG.set(Mutex::new(config)).ok();
 }
@@ -104,8 +88,8 @@ impl Config {
             target_file: target_file.into(),
             fifo_pipe: fifo_pipe.into(),
             blockentries: blockentries.into(),
-            ammoburn: ammoburn.into(),
-            usecost: usecost.into(),
+            ammoburn: ammoburn.parse::<i32>().map_err(|e| format!("Invalid ammoburn: {}", e))?,
+            usecost: usecost.parse::<f32>().map_err(|e| format!("Invalid usecost: {}", e))?,
         })
     }
 }

@@ -5,14 +5,10 @@
 #![allow(unused)]
 
 
-//use crate::{CONFIG, filewatching::LineTailer}; // Ger tillgång till den globala CONFIG
 use crate::CONFIG;
-
-
 
 use crate::CollectedData;
 use crate::COLLECTEDDATA;
-
 
 //ansi colors and details on text
 use colored::*;
@@ -55,6 +51,10 @@ pub fn findpatterns(line: &str) {
     // 2. Lås mutexen för att få muterbar åtkomst
     let collected_data = COLLECTEDDATA.get().expect("Config is not initialized!");
     let mut data = collected_data.lock().unwrap();
+
+    let config_data = CONFIG.get().expect("Config is not initialized!");
+    let config = config_data.lock().unwrap();
+
 
     //Blocked entries
     for blocks in BLOCKMATCH
@@ -126,7 +126,7 @@ pub fn findpatterns(line: &str) {
                                 println!("----------------------------------");
                                 println!("Shots on last mob: {}", data.lastmobshots);
                                 println!("Number of kills: {}", data.numberofkills);
-                                println!("Killcost: {}",data.lastmobshots);
+                                println!("Killcost: {} PED",data.lastmobshots*(1000/config.ammoburn));
                                 println!("----------------------------------");
                             }
 
