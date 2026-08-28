@@ -105,7 +105,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut tailer = LineTailer::new(config.target_file.clone())?;
 
     //println!("{}", config.target_file.clone());
-    assert!(!fs::exists(config.target_file.clone()).expect("Cant check existence of file"));
+    assert!(fs::exists(config.target_file.clone()).expect("Cant check existence of file"));
 
 
     // Loopa igenom radläsning från slutet med 1ms fördröjning
