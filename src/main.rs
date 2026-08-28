@@ -10,7 +10,7 @@ use filewatching::{LineTailer};
 
 mod inifilereader;
 //use inifilereader::{populateconfigstruct, Config, print_target};
-use inifilereader::{populateconfigstruct, print_target};
+use inifilereader::{load_config_file};
 
 mod pipe;
 use pipe::{ensure_fifo_exists, send_to_pipe};
@@ -29,6 +29,7 @@ use std::{
     array,
     fs::{File, OpenOptions},
 };
+
 
 
 static TARGET_FILE: &str = "/home/void/.local/share/Steam/steamapps/compatdata/3642750/pfx/drive_c/users/steamuser/Documents/Entropia Universe/chat.log";
@@ -57,7 +58,6 @@ pub struct CollectedData {
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    // Store runtime paths as PathBuf
     pub target_file: PathBuf,
     pub fifo_pipe: PathBuf,
     pub blockentries: String,
@@ -85,22 +85,20 @@ fn showbanner()
 
 
 
-fn main() -> std::io::Result<()> {
 
-    //show startbanner
+
+
+//fn main() -> std::io::Result<()> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+
     showbanner();
 
-    //this is a routine for sharing struct data between all .rs files.
-    populateconfigstruct();
+    // 2. Anropa funktionen
+    inifilereader::load_config_file()?;
 
-
-    let config = CONFIG.get().unwrap().lock().unwrap();
-
-    // Open the file dynamically using the runtime path
-    if let Ok(content) = std::fs::read_to_string(&config.target_file)
-    {
-        println!("Successfully read {} bytes", content.len());
-    }
+    // Nu är CONFIG satt, du kan hämta data så här:
+    let config = crate::CONFIG.get().unwrap().lock().unwrap();
+    println!("{:?}", config.target_file);
 
 
     // Create a mutable instance OUTSIDE the loop
@@ -109,19 +107,21 @@ fn main() -> std::io::Result<()> {
     COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
+
     // Skapa tailern en gång (startar i slutet av filen)
-    let mut tailer = LineTailer::new(TARGET_FILE)?;
+    //let mut tailer = LineTailer::new(TARGET_FILE)?;
+    let mut tailer = LineTailer::new(config.target_file.clone())?;
 
 
     // Loopa igenom radläsning från slutet med 1ms fördröjning
     loop {
-        if let Some(line) = tailer.read_next_new_line()?
-        {
-            findpatterns(&line);
-        }
+            if let Some(line) = tailer.read_next_new_line()?
+            {
+                findpatterns(&line);
+            }
 
-        std::thread::sleep(std::time::Duration::from_millis(1));
-    }
+            std::thread::sleep(std::time::Duration::from_millis(1));
+        }
 }
 
 

@@ -107,7 +107,7 @@ pub fn findpatterns(line: &str) {
         if line.contains("You received") {
 
             let newstring = formatstring(line);
-            println!("{}",newstring);
+            println!("{}",newstring.green().bold());
 
             // Söker efter ett decimaltal direkt följt av (eller nära) "PED"
             let searchstring = Regex::new(r"(\d+\.\d+)\s*PED").unwrap();
