@@ -21,11 +21,8 @@ use regex::Regex;
 
 
 
-static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
+//static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
 const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade", "Rookie"];
-
-
-
 
 
 
@@ -38,8 +35,8 @@ pub fn kor_analys() {
         println!("Successfully read {} bytes", content.len());
     }
 
-    println!("Starting analysis for file: {}", config.target_file.display());
-    println!("FIFO-pipe in use: {}", config.fifo_pipe.display());
+    println!("Starting analysis for file: {}", config.target_file);
+    println!("FIFO-pipe in use: {}", config.fifo_pipe);
 }
 
 
@@ -49,6 +46,7 @@ pub fn findpatterns(line: &str) {
     // 1. Create a mutable instance OUTSIDE the loop
     // 1. Hämta Mutexen från OnceLock
     // 2. Lås mutexen för att få muterbar åtkomst
+
     let collected_data = COLLECTEDDATA.get().expect("Config is not initialized!");
     let mut data = collected_data.lock().unwrap();
 
@@ -56,15 +54,9 @@ pub fn findpatterns(line: &str) {
     let config = config_data.lock().unwrap();
 
 
-    // Nu är CONFIG satt, du kan hämta data så här:
-    // let config = crate::CONFIG.get().unwrap().lock().unwrap();
-    // println!("{:?}", config.target_file);
-
-
-
-
     //Blocked entries
     for blocks in BLOCKMATCH
+    //for blocks in config.blockentries
     {
         if line.contains(blocks)
         {
@@ -76,7 +68,8 @@ pub fn findpatterns(line: &str) {
 
 
     // 1. Sök efter avatarnamn
-    if line.contains(AVATAR)
+    //if line.contains(AVATAR)
+    if line.contains(&config.avatarname)
     {
         //println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
         let newstring = formatstring(line);

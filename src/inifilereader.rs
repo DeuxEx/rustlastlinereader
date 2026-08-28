@@ -32,8 +32,10 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
     let mut target_file = String::new();
     let mut fifo_pipe = String::new();
     let mut blockentries = String::new();
+    let mut avatarname = String::new();
     let mut ammoburn = 0;
     let mut usecost = 0.0;
+
 
     for line in reader.lines() {
         let line = line?;
@@ -53,17 +55,19 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
                 "blockentries" => blockentries = value.to_string(),
                 "ammoburn" => ammoburn = value.parse().unwrap_or(0),
                 "usecost" => usecost = value.parse().unwrap_or(0.0),
+                "avatarname" => avatarname = value.to_string(),
                 _ => {}
             }
         }
     }
 
     let config = Config {
-        target_file: PathBuf::from(target_file),
-        fifo_pipe: PathBuf::from(fifo_pipe),
-        blockentries: String::from(blockentries),
+        target_file,
+        fifo_pipe,
+        blockentries,
         ammoburn,
         usecost,
+        avatarname,
     };
 
     let _ = CONFIG.set(Mutex::new(config));

@@ -53,14 +53,17 @@ pub struct CollectedData {
 }
 
 
+
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    pub target_file: PathBuf,
-    pub fifo_pipe: PathBuf,
+    pub target_file: String,
+    pub fifo_pipe: String,
     pub blockentries: String,
     pub ammoburn: i32,
     pub usecost: f32,
+    pub avatarname: String,
 }
+
 
 
 //ansi colors and details on text
@@ -74,9 +77,6 @@ fn showbanner()
         println!("║ Duxes File matching explorer for EU                  v. {}                    [2026]║", VERSION);
         println!("╚═══════════════════════════════════════════════════════════════════════════════════════╝");
 }
-
-
-
 
 
 
@@ -103,6 +103,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Skapa tailern en gång (startar i slutet av filen)
     //let mut tailer = LineTailer::new(TARGET_FILE)?;
     let mut tailer = LineTailer::new(config.target_file.clone())?;
+
+    println!("{}", config.target_file.clone());
+
 
 
     // Loopa igenom radläsning från slutet med 1ms fördröjning
