@@ -30,7 +30,7 @@ use std::{
 };
 
 
-static VERSION: &str = "0.17";
+static VERSION: &str = "0.18";
 
 
 //this is a routine for sharing struct data between all .rs files.
@@ -99,13 +99,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
+    /*
+     let cleaned_path = raw_value.trim().trim_matches('"');
+     let target_file = PathBuf::from(cleaned_path);
+     */
+
 
     // Skapa tailern en gång (startar i slutet av filen)
     //let mut tailer = LineTailer::new(TARGET_FILE)?;
     let mut tailer = LineTailer::new(config.target_file.clone())?;
 
-    //println!("{}", config.target_file.clone());
-    assert!(fs::exists(config.target_file.clone()).expect("Cant check existence of file"));
+
 
 
     // Loopa igenom radläsning från slutet med 1ms fördröjning

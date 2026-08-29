@@ -36,7 +36,6 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
     let mut ammoburn = 0;
     let mut usecost = 0.0;
 
-
     for line in reader.lines() {
         let line = line?;
         let trimmed = line.trim();
@@ -47,7 +46,9 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
 
         if let Some((key, value)) = trimmed.split_once('=') {
             let key = key.trim();
-            let value = value.trim().trim_matches('"');
+
+            // Thoroughly cleans quotes, Windows carriage returns (\r), and residual spaces
+            let value = value.trim().trim_matches('"').trim_end_matches('\r').trim();
 
             match key {
                 "target_file" => target_file = value.to_string(),
