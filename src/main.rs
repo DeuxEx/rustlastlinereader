@@ -11,6 +11,9 @@ use filewatching::{LineTailer};
 mod inifilereader;
 use inifilereader::{load_config_file};
 
+mod debug;
+use debug::{create_mock_log_file};
+
 mod pipe;
 use pipe::{ensure_fifo_exists, send_to_pipe};
 
@@ -24,13 +27,12 @@ use std::env;
 
 use serde::Deserialize;
 
-use std::{
-    array,
-    fs::{File, OpenOptions},
+use std::{array, fs::{File, OpenOptions},
 };
 
 
-static VERSION: &str = "0.18";
+use std::time::Duration;
+static VERSION: &str = "0.19";
 
 
 //this is a routine for sharing struct data between all .rs files.
@@ -85,8 +87,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     showbanner();
 
-    // 2. Anropa funktionen
+    // Anropa funktionen
     inifilereader::load_config_file()?;
+
 
     // Nu är CONFIG satt, du kan hämta data så här:
     let config = crate::CONFIG.get().unwrap().lock().unwrap();
@@ -99,20 +102,46 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
-    /*
-     let cleaned_path = raw_value.trim().trim_matches('"');
-     let target_file = PathBuf::from(cleaned_path);
-     */
+    // Use expect to handle the Result explicitly:
+    //create_mock_log_file(&config.target_file).expect("Failed to create mock log file");
 
 
-    // Skapa tailern en gång (startar i slutet av filen)
-    //let mut tailer = LineTailer::new(TARGET_FILE)?;
+
+    // Verify the file exists before passing it to the tailer
+    if !std::path::Path::new(&config.target_file.clone()).exists() {
+        println!("Waiting for target file to be created: {}", config.target_file);
+        // Add a loop here to wait for the file if needed
+    }
+
+    // 3. Initialize the tailer
     let mut tailer = LineTailer::new(config.target_file.clone())?;
 
 
 
 
+    loop {
+        if let Some(line) = tailer.read_next_new_line()?
+        {
+            println!("Fångade rad: {}", line);
+
+            // Skydda mot krasch
+            let result = std::panic::catch_unwind(|| {
+                findpatterns(&line);
+            });
+
+            match result {
+                Ok(_) => println!("findpatterns kördes klart utan krasch."),
+                Err(e) => eprintln!("KRASCH i findpatterns: {:?}", e),
+            }
+        }
+        std::thread::sleep(std::time::Duration::from_millis(1));
+
+    }
+
+
+
     // Loopa igenom radläsning från slutet med 1ms fördröjning
+/*
     loop {
             if let Some(line) = tailer.read_next_new_line()?
             {
@@ -121,6 +150,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             std::thread::sleep(std::time::Duration::from_millis(1));
         }
+*/
 }
 
 

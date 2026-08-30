@@ -8,10 +8,11 @@ use crate::exists;
 
 use std::fs::File;
 use std::io::{BufRead, BufReader, Seek, SeekFrom};
-use std::path::Path;
+use std::path::{Path, PathBuf};
+
 
 pub struct LineTailer {
-    reader: BufReader<File>,
+    path: PathBuf,
     last_pos: u64,
 }
 
@@ -30,49 +31,50 @@ use serde_ini::ser::Error;
 
 
 impl LineTailer {
-    /// Skapar en ny tailer och ställer sig i slutet av filen
     pub fn new<P: AsRef<Path>>(path: P) -> std::io::Result<Self> {
-        let mut file = File::open(path)?;
+        let path = path.as_ref().to_path_buf();
+        // Ställ in startpositionen på slutet av filen direkt vid start
+        let mut file = File::open(&path)?;
         let last_pos = file.seek(SeekFrom::End(0))?;
-        Ok(Self {
-            reader: BufReader::new(file),
-           last_pos,
-        })
+
+        Ok(Self { path, last_pos })
     }
 
-    /// Läser nästa helt nya rad om filen har vuxit.
-    /// Returnerar `Ok(None)` om inga nya färdiga rader finns ännu.
     pub fn read_next_new_line(&mut self) -> std::io::Result<Option<String>> {
-        let current_len = self.reader.get_ref().metadata()?.len();
+        let mut file = File::open(&self.path)?;
+        let current_len = file.metadata()?.len();
 
-        // Hantera om filen trunkerats/roterats
+        // SKRIV UT FÖR VARJE VARV:
+        //println!("DEBUG: current_len={}, last_pos={}", current_len, self.last_pos);
+
         if current_len < self.last_pos {
             self.last_pos = 0;
-            self.reader.seek(SeekFrom::Start(0))?;
         } else if current_len == self.last_pos {
-            return Ok(None); // Inga nya data
+            return Ok(None);
         }
 
-        let mut line = String::new();
-        let bytes_read = self.reader.read_line(&mut line)?;
+        file.seek(SeekFrom::Start(self.last_pos))?;
+        let mut reader = BufReader::new(file);
 
-        // Säkerställ att raden har en radbrytning (är helt färdigskriven)
-        if bytes_read > 0 && line.ends_with('\n') {
+        let mut line = String::new();
+        let bytes_read = reader.read_line(&mut line)?;
+
+        //println!("DEBUG: bytes_read={}, line={:?}", bytes_read, line);
+
+        if bytes_read > 0 {
             self.last_pos += bytes_read as u64;
 
-            // Ta bort radbrytningen i slutet
             if line.ends_with("\r\n") {
                 line.truncate(line.len() - 2);
-            } else {
+            } else if line.ends_with('\n') {
                 line.truncate(line.len() - 1);
             }
 
             Ok(Some(line))
         } else {
-            // Raden är inte färdigskriven än (partiell skrivning)
-            // Backa tillbaka så vi kan läsa om den när hela raden finns
-            self.reader.seek(SeekFrom::Start(self.last_pos))?;
             Ok(None)
         }
     }
+
+
 }

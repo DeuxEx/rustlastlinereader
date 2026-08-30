@@ -1,0 +1,1 @@
+/home/void/rustlastlinereader/target/release/deuxeureader: /home/void/rustlastlinereader/src/debug.rs /home/void/rustlastlinereader/src/filewatching.rs /home/void/rustlastlinereader/src/inifilereader.rs /home/void/rustlastlinereader/src/main.rs /home/void/rustlastlinereader/src/patterns.rs /home/void/rustlastlinereader/src/pipe.rs

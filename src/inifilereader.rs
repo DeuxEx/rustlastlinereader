@@ -50,6 +50,9 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
             // Thoroughly cleans quotes, Windows carriage returns (\r), and residual spaces
             let value = value.trim().trim_matches('"').trim_end_matches('\r').trim();
 
+            // SKRIV UT FÖR ATT FELSÖKA:
+            println!("Läst nyckel: [{}] -> Värde: [{:?}]", key, value);
+
             match key {
                 "target_file" => target_file = value.to_string(),
                 "fifo_pipe" => fifo_pipe = value.to_string(),
