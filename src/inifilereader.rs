@@ -74,6 +74,6 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
         avatarname,
     };
 
-    let _ = CONFIG.set(Mutex::new(config));
+    let _ = CONFIG.set(config);
     Ok(())
 }

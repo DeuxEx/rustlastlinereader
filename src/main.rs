@@ -37,10 +37,11 @@ static VERSION: &str = "0.19";
 
 //this is a routine for sharing struct data between all .rs files.
 use std::sync::OnceLock;
-pub static CONFIG: OnceLock<Mutex<Config>> = OnceLock::new();
+pub static CONFIG: OnceLock<Config> = OnceLock::new();
 
 use std::sync::Mutex;
 pub static COLLECTEDDATA: OnceLock<Mutex<CollectedData>> = OnceLock::new();
+
 
 
 #[derive(Debug, Default)]
@@ -66,11 +67,36 @@ pub struct Config {
     pub avatarname: String,
 }
 
+impl Config {
+    // Hjälpmetod som automatiskt ger dig en Vec<String>
+    pub fn blockentries_vec(&self) -> Vec<String> {
+        self.blockentries
+        .split(',')
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+        .collect()
+    }
+}
 
 
 //ansi colors and details on text
 use colored::*;
 
+
+
+pub fn update_collected_data<F>(f: F)
+where
+F: FnOnce(&mut CollectedData),
+{
+    let data_cell = COLLECTEDDATA.get().expect("CollectedData not initialized");
+    let mut data = data_cell.lock().unwrap();
+    f(&mut data);
+}
+
+
+/*
+ cr*ate::update_collected_data(|data| {data.totaldamage += 10.0;});
+ */
 
 
 fn showbanner()
@@ -92,8 +118,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 
     // Nu är CONFIG satt, du kan hämta data så här:
-    let config = crate::CONFIG.get().unwrap().lock().unwrap();
-    println!("{:?}", config.target_file);
+    let config = crate::CONFIG.get().unwrap();
+    //println!("{:?}", config.target_file);
 
 
     // Create a mutable instance OUTSIDE the loop
@@ -122,35 +148,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     loop {
         if let Some(line) = tailer.read_next_new_line()?
         {
-            println!("Fångade rad: {}", line);
+            //println!("Fångade rad: {}", line);
 
             // Skydda mot krasch
             let result = std::panic::catch_unwind(|| {
                 findpatterns(&line);
             });
 
-            match result {
+            /*match result {
                 Ok(_) => println!("findpatterns kördes klart utan krasch."),
                 Err(e) => eprintln!("KRASCH i findpatterns: {:?}", e),
-            }
+            }*/
         }
         std::thread::sleep(std::time::Duration::from_millis(1));
 
     }
 
-
-
-    // Loopa igenom radläsning från slutet med 1ms fördröjning
-/*
-    loop {
-            if let Some(line) = tailer.read_next_new_line()?
-            {
-                findpatterns(&line);
-            }
-
-            std::thread::sleep(std::time::Duration::from_millis(1));
-        }
-*/
 }
 
 

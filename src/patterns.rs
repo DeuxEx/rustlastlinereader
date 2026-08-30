@@ -10,7 +10,9 @@ use crate::CONFIG;
 use crate::CollectedData;
 use crate::COLLECTEDDATA;
 
-//ansi colors and details on text
+use crate::update_collected_data;
+
+
 use colored::*;
 
 use std::i32;
@@ -22,12 +24,12 @@ use regex::Regex;
 
 
 //static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
-const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade", "Rookie"];
+//const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade", "Rookie"];
 
 
 
 pub fn kor_analys() {
-    let config = CONFIG.get().unwrap().lock().unwrap();
+    let config = CONFIG.get().unwrap();
 
     // Open the file dynamically using the runtime path
     if let Ok(content) = std::fs::read_to_string(&config.target_file)
@@ -43,40 +45,46 @@ pub fn kor_analys() {
 
 pub fn findpatterns(line: &str) {
 
-    // 1. Create a mutable instance OUTSIDE the loop
-    // 1. Hämta Mutexen från OnceLock
-    // 2. Lås mutexen för att få muterbar åtkomst
-
-    let collected_data = COLLECTEDDATA.get().expect("Config is not initialized!");
-    let mut data = collected_data.lock().unwrap();
-
-    let config_data = CONFIG.get().expect("Config is not initialized!");
-    let config = config_data.lock().unwrap();
+    let avatarname = {
+        let config_data = CONFIG.get().expect("Config is not initialized!");
+        let config = config_data;
+        config.avatarname.clone() // Klona ut det du behöver som en ägd sträng
+    }; // <-- låset släpps automatiskt här
 
 
-    //Blocked entries
-    for blocks in BLOCKMATCH
-    //for blocks in config.blockentries
+
+
     {
-        if line.contains(blocks)
-        {
-            // 2026-08-07 15:26:23 [#calytrade] [Joshua Crone Craftson] WTB [Entropia Unreal Token] @ 12 ped each
-            println!("block found, skipping to next line: {}", blocks.red().bold());
-            return;
-        }
-    }
+        let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
+        let mut data = collected_data.lock().unwrap();
+
+        // Gör dina ändringar på data här...
+        // data.some_field = ...
+    }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+
+    // 3. Fortsätt arbeta med variablerna utan att några lås blockerar tråden
+
+
+    /*
+     * cr*ate::update_collected_data(|data| {data.totaldamage += 10.0;});
+     */
+
+    println!("{}",line);
+
+
 
 
     // 1. Sök efter avatarnamn
-    //if line.contains(AVATAR)
-    if line.contains(&config.avatarname)
+    if line.contains(&avatarname)
     {
-        //println!(" MATCH: Avatar '{}' found!", AVATAR.green().bold());
+        println!("MATCH: Avatar '{}' found!", avatarname.green().bold());
         let newstring = formatstring(line);
         println!("{}",newstring.green().bold());
     }
 
 
+
+/*
     //Systemevent
     if line.contains("[System]")
     {
@@ -101,7 +109,10 @@ pub fn findpatterns(line: &str) {
                 }
             }
         }
+*/
 
+
+/*
 
         // 2026-08-07 15:25:10 [System] [] You received Enhanced Adaptive Fuse x (6) Value: 7.02 PED
         if line.contains("You received") {
@@ -142,6 +153,7 @@ pub fn findpatterns(line: &str) {
 
         // 2026-08-07 15:26:06 [System] [] You have gained 0.0041 experience in your Wounding skill
     }
+*/
 
 
     //Globalevent
@@ -152,6 +164,9 @@ pub fn findpatterns(line: &str) {
         let newstring = formatstring(line);
         println!("{}",newstring);
     }
+
+return;
+
 }
 
 
