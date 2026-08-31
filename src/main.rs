@@ -103,6 +103,19 @@ F: FnOnce(&CollectedData) -> T,
     f(&data) // Skickar med en referens till datan och returnerar det resultatet funktionen vill ha
 }
 
+
+pub fn read_any_data<T, F, R>(cell: &std::sync::OnceLock<std::sync::Mutex<T>>, f: F) -> R
+where
+F: FnOnce(&T) -> R,
+{
+    let data_cell = cell.get().expect("Data cell not initialized");
+    let data = data_cell.lock().unwrap();
+    f(&data)
+}
+
+
+
+
 // Hämta en specifik variabel
 //let current_dmg = crate::read_collected_data(|data| data.totaldamage);
 
