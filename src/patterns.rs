@@ -194,18 +194,18 @@ pub fn findpatterns(line: &str) {
                                     data.lastmobshots += 1;
                                 });
 
-                                println!("----------------------------------");
-                                println!("Shots on last mob: {}", lastmobshots);
-                                println!("Number of kills: {}", numberofkills);
-                                println!("Killcost: {} PED",lastmobshots*(1000/ammoburn));
-                                println!("----------------------------------");
+
+                                crate::read_collected_data(|data|
+                                {
+                                    println!("----------------------------------");
+                                    println!("Shots on last mob: {}", data.lastmobshots);
+                                    println!("Number of kills: {}", data.numberofkills);
+                                    println!("Killcost: {:.2} PED",data.lastmobshots*(1000/ammoburn));
+                                    println!("----------------------------------");
+
+                                });
 
 
-                                // Hämta en specifik variabel
-                                let current_dmg = crate::read_collected_data(|data| data.totaldamage);
-
-                                // Eller skriv ut direkt
-                                crate::read_collected_data(|data| {println!("Nuvarande skada: {}, Dödade: {}", data.totaldamage, data.numberofkills);});
 
                                 //println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
 
@@ -214,12 +214,14 @@ pub fn findpatterns(line: &str) {
                         //i samband med detta så resettar vi lastlootvalue så vi får en hyfsad sann bild av mob_cost_to_kill
                         //det kan slå på några loot-rader men killcosten borde blir ganska exakt, det är lootvärdet som kan slå lite.
 
-                        crate::update_collected_data(|data| {data.totallootvalue += number;});
-                        crate::update_collected_data(|data| {data.lastlootvalue = number;});
-
-                        crate::update_collected_data(|data| {data.lastlootvalue = 0.0;});
-                        crate::update_collected_data(|data| {data.lastdamage = 0.0;});
-                        crate::update_collected_data(|data| {data.lastmobshots = 0;});
+                        crate::update_collected_data(|data|
+                        {
+                            data.totallootvalue += number;
+                            data.lastlootvalue = number;
+                            data.lastlootvalue = 0.0;
+                            data.lastdamage = 0.0;
+                            data.lastmobshots = 0;
+                        });
 
                     }
                 }

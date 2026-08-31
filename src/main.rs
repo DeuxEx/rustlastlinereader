@@ -103,6 +103,15 @@ F: FnOnce(&CollectedData) -> T,
     f(&data) // Skickar med en referens till datan och returnerar det resultatet funktionen vill ha
 }
 
+// Hämta en specifik variabel
+//let current_dmg = crate::read_collected_data(|data| data.totaldamage);
+
+// Eller skriv ut direkt
+//crate::read_collected_data(|data| {println!("Nuvarande skada: {}, Dödade: {}", data.totaldamage, data.numberofkills);});
+
+
+
+
 
 
 
