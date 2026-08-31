@@ -94,9 +94,16 @@ F: FnOnce(&mut CollectedData),
 }
 
 
-/*
- cr*ate::update_collected_data(|data| {data.totaldamage += 10.0;});
- */
+pub fn read_collected_data<F, T>(f: F) -> T
+where
+F: FnOnce(&CollectedData) -> T,
+{
+    let data_cell = COLLECTEDDATA.get().expect("CollectedData not initialized");
+    let data = data_cell.lock().unwrap();
+    f(&data) // Skickar med en referens till datan och returnerar det resultatet funktionen vill ha
+}
+
+
 
 
 fn showbanner()

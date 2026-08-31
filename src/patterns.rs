@@ -58,54 +58,62 @@ pub fn findpatterns(line: &str) {
     }; // <-- låset släpps automatiskt här
 
 
-
-    let mut totaldamage = {
+    let mut totaldamage: f32 = 0.0;
+/*    let mut totaldamage = {
         let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
         let mut data = collected_data.lock().unwrap();
         data.totaldamage.clone()
     }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+*/
 
-    let mut lastdamage = {
+    let mut lastdamage: f32 = 0.0;
+/*    let mut lastdamage = {
         let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
         let mut data = collected_data.lock().unwrap();
         data.lastdamage.clone()
     }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+*/
 
-    let mut totalshots = {
+    let mut totalshots: i32 = 0;
+/*    let mut totalshots = {
         let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
         let mut data = collected_data.lock().unwrap();
         data.totalshots.clone()
     }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+*/
 
-    let mut lastmobshots = {
+    let mut lastmobshots: i32 = 0;
+/*    let mut lastmobshots = {
         let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
         let mut data = collected_data.lock().unwrap();
         data.lastmobshots.clone()
     }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+*/
 
-    let mut numberofkills = {
+    let mut numberofkills: i32 = 0;
+/*    let mut numberofkills = {
         let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
         let mut data = collected_data.lock().unwrap();
         data.numberofkills.clone()
     }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+*/
 
-    let mut lastlootvalue = {
+    let mut lastlootvalue: f32 = 0.0;
+/*    let mut lastlootvalue = {
         let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
         let mut data = collected_data.lock().unwrap();
         data.lastlootvalue.clone()
     }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+*/
 
-
-    let mut totallootvalue = {
+    let mut totallootvalue: f32 = 0.0;
+/*    let mut totallootvalue = {
         let collected_data = COLLECTEDDATA.get().expect("CollectedData is not initialized!");
         let mut data = collected_data.lock().unwrap();
         data.totallootvalue.clone()
     }; // <-- Låset för COLLECTEDDATA släpps AUTOMATISKT här
+*/
 
-
-    /*
-     * crate::update_collected_data(|data| {data.totaldamage += 10.0;});
-     */
 
 
     println!("{}",line);
@@ -138,19 +146,22 @@ pub fn findpatterns(line: &str) {
                 if let Some((between, _)) = after_inflicted.split_once("points")
                 {
                     if let Ok(damage) = between.trim().parse::<f32>()
+                    {
+                        totaldamage += damage;
+                        lastdamage = damage;
+                        totalshots += 1;
+                        lastmobshots += 1;
+
+                        crate::update_collected_data(|data|
                         {
-                            totaldamage += damage;
-                            lastdamage = damage;
-                            totalshots += 1;
-                            lastmobshots += 1;
+                            data.totaldamage = totaldamage;
+                            data.lastdamage = lastdamage;
+                            data.totalshots += 1;
+                            data.lastmobshots += 1;
+                        });
 
-                            crate::update_collected_data(|data| {data.totaldamage = totaldamage;});
-                            crate::update_collected_data(|data| {data.lastdamage = lastdamage;});
-                            crate::update_collected_data(|data| {data.totalshots += 1;});
-                            crate::update_collected_data(|data| {data.lastmobshots += 1;});
-
-                            //println!("Current hit: {:.1} | Total so far: {:.1}", data.lastdamage, data.totaldamage);
-                        }
+                        //println!("Current hit: {:.1} | Total so far: {:.1}", data.lastdamage, data.totaldamage);
+                    }
                 }
             }
         }
@@ -173,26 +184,38 @@ pub fn findpatterns(line: &str) {
                 if let Some(matched) = captures.get(1) {
                     if let Ok(number) = matched.as_str().parse::<f32>() {
 
-                        crate::update_collected_data(|data| {data.totallootvalue += number;});
-                        crate::update_collected_data(|data| {data.lastlootvalue = number;});
-
-
-                        //println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
+                        //kolla efter hur mycket ammo som skjutits så vi inte får falsk data när det kommer flera rader med loot.
                         if(lastmobshots >0)
                             {
                                 numberofkills += 1;
-
-                                crate::update_collected_data(|data| {data.lastmobshots += 1;});
+                                crate::update_collected_data(|data|
+                                {
+                                    data.numberofkills += 1;
+                                    data.lastmobshots += 1;
+                                });
 
                                 println!("----------------------------------");
                                 println!("Shots on last mob: {}", lastmobshots);
                                 println!("Number of kills: {}", numberofkills);
                                 println!("Killcost: {} PED",lastmobshots*(1000/ammoburn));
                                 println!("----------------------------------");
+
+
+                                // Hämta en specifik variabel
+                                let current_dmg = crate::read_collected_data(|data| data.totaldamage);
+
+                                // Eller skriv ut direkt
+                                crate::read_collected_data(|data| {println!("Nuvarande skada: {}, Dödade: {}", data.totaldamage, data.numberofkills);});
+
+                                //println!("Current ped: {:.2} | Total so far: {:.2}", data.lastlootvalue, data.totallootvalue);
+
                             }
 
                         //i samband med detta så resettar vi lastlootvalue så vi får en hyfsad sann bild av mob_cost_to_kill
                         //det kan slå på några loot-rader men killcosten borde blir ganska exakt, det är lootvärdet som kan slå lite.
+
+                        crate::update_collected_data(|data| {data.totallootvalue += number;});
+                        crate::update_collected_data(|data| {data.lastlootvalue = number;});
 
                         crate::update_collected_data(|data| {data.lastlootvalue = 0.0;});
                         crate::update_collected_data(|data| {data.lastdamage = 0.0;});
