@@ -32,7 +32,7 @@ use std::{array, fs::{File, OpenOptions},
 
 
 use std::time::Duration;
-static VERSION: &str = "0.19";
+static VERSION: &str = "0.1.1";
 
 
 //this is a routine for sharing struct data between all .rs files.
@@ -131,7 +131,7 @@ F: FnOnce(&T) -> R,
 fn showbanner()
 {
         println!("╔═══════════════════════════════════════════════════════════════════════════════════════╗");
-        println!("║ Duxes File matching explorer for EU                  v. {}                    [2026]║", VERSION);
+        println!("║ Duxes File matching explorer for EU                  v. {}                   [2026]║", VERSION);
         println!("╚═══════════════════════════════════════════════════════════════════════════════════════╝");
 }
 
@@ -157,7 +157,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
-    // Use expect to handle the Result explicitly:
+    // Create the targetfile on a debug based install to make it work.
     //create_mock_log_file(&config.target_file).expect("Failed to create mock log file");
 
 

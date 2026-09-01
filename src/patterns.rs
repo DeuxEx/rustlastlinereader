@@ -57,10 +57,15 @@ pub fn findpatterns(line: &str) {
     {
         let config_data = CONFIG.get().expect("Config is not initialized!");
         let config = config_data;
-     // (config.ammoburn.clone()/10000) as f32
         (config.ammoburn.clone() as f32)/10000.0
     }; // <-- låset släpps automatiskt här
 
+    let usecost: f32 =
+    {
+        let config_data = CONFIG.get().expect("Config is not initialized!");
+        let config = config_data;
+        (config.usecost.clone() as f32)/10000.0
+    }; // <-- låset släpps automatiskt här
 
 
     let mut totaldamage: f32 = 0.0;
@@ -165,6 +170,7 @@ pub fn findpatterns(line: &str) {
                                     println!("Total loot: {}", data.totallootvalue);
                                     println!("Ammoburn: {}", ammoburn);
                                     println!("Killcost: {:.2} PED",(data.lastmobshots as f32)*ammoburn);
+                                    println!("Usecost: {:.2} PED",(data.lastmobshots as f32)*usecost);
                                     println!("----------------------------------");
                                 });
                             }
