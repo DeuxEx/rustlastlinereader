@@ -130,9 +130,9 @@ F: FnOnce(&T) -> R,
 
 fn showbanner()
 {
-        println!("╔═══════════════════════════════════════════════════════════════════════════════════════╗");
-        println!("║ Duxes File matching explorer for EU                  v. {}                   [2026]║", VERSION);
-        println!("╚═══════════════════════════════════════════════════════════════════════════════════════╝");
+        println!("{}","╔═════════════════════════════════════════════════════════╗".yellow());
+        println!("{}","║ Deux EU Reader                 v. 0.1.1           [2026]║".yellow());
+        println!("{}","╚═════════════════════════════════════════════════════════╝".yellow());
 }
 
 
@@ -157,7 +157,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
-    // Create the targetfile on a debug based install to make it work.
+    // Create the targetfile on a debug based install to make it work.car
     //create_mock_log_file(&config.target_file).expect("Failed to create mock log file");
 
 
