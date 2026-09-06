@@ -32,7 +32,6 @@ use std::{array, fs::{File, OpenOptions},
 
 
 use std::time::Duration;
-static VERSION: &str = "0.1.1";
 
 
 //this is a routine for sharing struct data between all .rs files.
@@ -42,6 +41,8 @@ pub static CONFIG: OnceLock<Config> = OnceLock::new();
 use std::sync::Mutex;
 pub static COLLECTEDDATA: OnceLock<Mutex<CollectedData>> = OnceLock::new();
 
+
+static VERSION: &str = env!("CARGO_PKG_VERSION"); // Hämtar t.ex. "0.1.1" från Cargo.toml
 
 
 #[derive(Debug, Default)]
@@ -53,6 +54,7 @@ pub struct CollectedData {
     pub totalshots: i32,
     pub lastmobshots: i32,
     pub numberofkills: i32,
+    pub is_mob_dead: bool, // Lägg till detta! Standardvärde: false
 }
 
 
@@ -130,9 +132,9 @@ F: FnOnce(&T) -> R,
 
 fn showbanner()
 {
-    println!("{}", "╔═════════════════════════════════════════════╦════════╦════════╗".green());
-    println!("{}{}{}{}{}{}{}","║".green(),"     -=:(  Deux EU Reader ):=-               ".white(),"║".green()," v0.1.1 ".white(),"║".green()," [2026] ".white(),"║".green());
-    println!("{}", "╚═════════════════════════════════════════════╩════════╩════════╝".green());
+    println!("{}", "╔═══════════════════════════════════════════════════════╦════════╦════════╗".green());
+    println!("{}{}{}{}{}{}{}","║".green(),"               -=:(  Deux EU Reader ):=-               ".white(),"║".green(),format!(" v{} ", VERSION).white(), "║".green()," [2026] ".white(),"║".green());
+    println!("{}", "╚═══════════════════════════════════════════════════════╩════════╩════════╝".green());
 }
 
 

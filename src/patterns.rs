@@ -24,10 +24,6 @@ use regex::Regex;
 
 
 
-//static AVATAR: &str = "Deux Pelleman Ex"; // Avatarnamnet
-//const BLOCKMATCH: &'static [&'static str] = &["#calytrade", "#trade", "#arktrade", "Rookie"];
-
-
 
 pub fn kor_analys() {
     let config = CONFIG.get().unwrap();
@@ -90,37 +86,40 @@ pub fn findpatterns(line: &str) {
 
 
 
+
+
     //Systemevent
     if line.contains("[System]")
     {
         // 2026-08-07 15:26:00 [System] [] Critical hit - Additional damage! You inflicted 281.9 points of damage
         if line.contains("You inflicted")
         {
-            let newstring = formatstring(line);
-            println!("{}",newstring);
-
             if let Some((_, after_inflicted)) = line.split_once("You inflicted ")
             {
                 if let Some((between, _)) = after_inflicted.split_once("points")
                 {
                     if let Ok(damage) = between.trim().parse::<f32>()
                     {
-                        totaldamage += damage;
-                        lastdamage = damage;
-                        totalshots += 1;
-                        lastmobshots += 1;
+                        let newstring = formatstring(line);
+                        println!("{}", newstring);
 
                         crate::update_collected_data(|data|
                         {
+                            // Om förra mobben blev killad/lootad -> nollställ räknaren för ny mob!
+                            if data.is_mob_dead {
+                                data.lastmobshots = 0;
+                                data.is_mob_dead = false; // Återställ flaggan inför den nya mobben
+                            }
+
                             data.totaldamage += damage;
                             data.lastdamage = damage;
                             data.totalshots += 1;
-                            data.lastmobshots += 1;
+                            data.lastmobshots += 1; // Nu räknas skottet alltid rätt (startar på 1 för ny mob)
 
-                            println!("totaldamage: {:.2}",data.totaldamage);
-                            println!("lastdamage: {:.2}",data.lastdamage);
-                            println!("totalshots: {}",data.totalshots);
-                            println!("lastmobshots: {}",data.lastmobshots);
+                        println!("totaldamage: {:.2}", data.totaldamage);
+                        println!("lastdamage: {:.2}", data.lastdamage);
+                        println!("totalshots: {}", data.totalshots);
+                        println!("lastmobshots: {}", data.lastmobshots);
                         });
                     }
                 }
@@ -132,63 +131,44 @@ pub fn findpatterns(line: &str) {
 
 
         // 2026-08-07 15:25:10 [System] [] You received Enhanced Adaptive Fuse x (6) Value: 7.02 PED
-        if line.contains("You received") {
-
-            let newstring = formatstring(line);
-            println!("{}",newstring.green().bold());
-
-            // Söker efter ett decimaltal direkt följt av (eller nära) "PED"
-            let searchstring = Regex::new(r"(\d+\.\d+)\s*PED").unwrap();
-
-            if let Some(captures) = searchstring.captures(line)
+        if line.contains("You received")
+        {
+            if line.contains("You received")
             {
-                if let Some(matched) = captures.get(1)
-                {
-                    if let Ok(number) = matched.as_str().parse::<f32>()
-                    {
+                let newstring = formatstring(line);
+                println!("{}", newstring.green().bold());
 
-                        //kolla efter hur mycket ammo som skjutits så vi inte får falsk data när det kommer flera rader med loot.
+                if let Some((before_ped, _)) = line.split_once(" PED") {
+                    if let Some(val_str) = before_ped.split_whitespace().last() {
+                        if let Ok(item_value) = val_str.parse::<f32>() {
 
-                        if (crate::read_any_data(&COLLECTEDDATA,|data| data.lastmobshots > 0 ))
-                            {
-                                numberofkills += 1;
-                                crate::update_collected_data(|data|
-                                {
+                            crate::update_collected_data(|data| {
+                                // Om det är första loot-raden för denna mob
+                                if !data.is_mob_dead {
                                     data.numberofkills += 1;
-                                    data.lastmobshots += 1;
-                                    data.totallootvalue += number;
-                                    data.lastlootvalue = number;
-                                });
+                                    data.lastlootvalue = 0.0; // Nollställ inför denna mobs loot-rader
+                                    data.is_mob_dead = true;  // Markera mobben som dead/lootad!
+                                }
 
+                                // Samla ihop looten (fungerar för både 1 och 10 loot-rader i rad)
+                                data.lastlootvalue += item_value;
+                                data.totallootvalue += item_value;
+                            });
 
-                                crate::read_any_data(&COLLECTEDDATA,|data|
-                                {
-                                    println!("----------------------------------");
-                                    println!("Shots on last mob: {}", data.lastmobshots);
-                                    println!("Number of kills: {}", data.numberofkills);
-                                    println!("Last loot: {}", data.lastlootvalue);
-                                    println!("Total loot: {}", data.totallootvalue);
-                                    println!("Ammoburn: {}", ammoburn);
-                                    println!("Killcost: {:.2} PED",(data.lastmobshots as f32)*ammoburn);
-                                    println!("Usecost: {:.2} PED",(data.lastmobshots as f32)*usecost);
-                                    println!("----------------------------------");
-                                });
-                            }
-
-                        //i samband med detta så resettar vi lastlootvalue så vi får en hyfsad sann bild av mob_cost_to_kill
-                        //det kan slå på några loot-rader men killcosten borde blir ganska exakt, det är lootvärdet som kan slå lite.
-
-                        crate::update_collected_data(|data|
-                        {
-                            data.lastlootvalue = 0.0;
-                            data.lastdamage = 0.0;
-                            data.lastmobshots = 0;
-                        });
+                            // Skriv ut resultat för mobben
+                            crate::read_any_data(&COLLECTEDDATA, |data| {
+                                println!("----------------------------------");
+                                println!("Shots on this mob: {}", data.lastmobshots);
+                                println!("Number of kills: {}", data.numberofkills);
+                                println!("Loot on this kill: {:.2} PED", data.lastlootvalue);
+                                println!("Total loot: {:.2} PED", data.totallootvalue);
+                                println!("----------------------------------");
+                            });
+                        }
                     }
                 }
             }
         }
-
 
 
         // 2026-08-07 15:26:06 [System] [] You have gained 0.0041 experience in your Wounding skill
