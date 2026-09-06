@@ -130,19 +130,17 @@ F: FnOnce(&T) -> R,
 
 fn showbanner()
 {
-        println!("{}","╔═══════════════════════════════════╦════════╦════════╗".yellow());
-        println!("{}","║     -=:(  Deux EU Reader ):=-     ║ v0.1.1 ║ [2026] ║".yellow());
-        println!("{}","╚═══════════════════════════════════╩════════╩════════╝".yellow());
+    println!("{}", "╔═════════════════════════════════════════════╦════════╦════════╗".green());
+    println!("{}{}{}{}{}{}{}","║".green(),"     -=:(  Deux EU Reader ):=-               ".white(),"║".green()," v0.1.1 ".white(),"║".green()," [2026] ".white(),"║".green());
+    println!("{}", "╚═════════════════════════════════════════════╩════════╩════════╝".green());
 }
 
 
 
-//fn main() -> std::io::Result<()> {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     showbanner();
 
-    // Anropa funktionen
     inifilereader::load_config_file()?;
 
 
@@ -174,25 +172,23 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 
 
-    loop {
-        if let Some(line) = tailer.read_next_new_line()?
-        {
+    loop
+    {
+        // Läs alla nya kompletta rader som skrivits till filen
+        let lines = tailer.read_new_lines()?;
+
+        for line in lines {
             //println!("Fångade rad: {}", line);
 
             // Skydda mot krasch
-            let result = std::panic::catch_unwind(|| {
-                findpatterns(&line);
-            });
+            let result = std::panic::catch_unwind(|| {findpatterns(&line);});
 
-            /*match result {
-                Ok(_) => println!("findpatterns kördes klart utan krasch."),
-                Err(e) => eprintln!("KRASCH i findpatterns: {:?}", e),
-            }*/
+            // match result {
+            // *           Ok(_) => println!("findpatterns kördes klart utan krasch."),
+            // *           Err(e) => eprintln!("KRASCH i findpatterns: {:?}", e), }
         }
         std::thread::sleep(std::time::Duration::from_millis(1));
-
     }
 
+
 }
-
-
