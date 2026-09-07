@@ -56,6 +56,7 @@ pub fn findpatterns(line: &str) {
         (config.ammoburn.clone() as f32)/10000.0
     }; // <-- låset släpps automatiskt här
 
+
     let usecost: f32 =
     {
         let config_data = CONFIG.get().expect("Config is not initialized!");
@@ -133,38 +134,35 @@ pub fn findpatterns(line: &str) {
         // 2026-08-07 15:25:10 [System] [] You received Enhanced Adaptive Fuse x (6) Value: 7.02 PED
         if line.contains("You received")
         {
-            if line.contains("You received")
-            {
-                let newstring = formatstring(line);
-                println!("{}", newstring.green().bold());
+            let newstring = formatstring(line);
+            println!("{}", newstring.green().bold());
 
-                if let Some((before_ped, _)) = line.split_once(" PED") {
-                    if let Some(val_str) = before_ped.split_whitespace().last() {
-                        if let Ok(item_value) = val_str.parse::<f32>() {
+            if let Some((before_ped, _)) = line.split_once(" PED") {
+                if let Some(val_str) = before_ped.split_whitespace().last() {
+                    if let Ok(item_value) = val_str.parse::<f32>() {
 
-                            crate::update_collected_data(|data| {
-                                // Om det är första loot-raden för denna mob
-                                if !data.is_mob_dead {
-                                    data.numberofkills += 1;
-                                    data.lastlootvalue = 0.0; // Nollställ inför denna mobs loot-rader
-                                    data.is_mob_dead = true;  // Markera mobben som dead/lootad!
-                                }
+                        crate::update_collected_data(|data| {
+                            // Om det är första loot-raden för denna mob
+                            if !data.is_mob_dead {
+                                data.numberofkills += 1;
+                                data.lastlootvalue = 0.0; // Nollställ inför denna mobs loot-rader
+                                data.is_mob_dead = true;  // Markera mobben som dead/lootad!
+                            }
 
-                                // Samla ihop looten (fungerar för både 1 och 10 loot-rader i rad)
-                                data.lastlootvalue += item_value;
-                                data.totallootvalue += item_value;
-                            });
+                            // Samla ihop looten (fungerar för både 1 och 10 loot-rader i rad)
+                            data.lastlootvalue += item_value;
+                            data.totallootvalue += item_value;
+                        });
 
-                            // Skriv ut resultat för mobben
-                            crate::read_any_data(&COLLECTEDDATA, |data| {
-                                println!("----------------------------------");
-                                println!("Shots on this mob: {}", data.lastmobshots);
-                                println!("Number of kills: {}", data.numberofkills);
-                                println!("Loot on this kill: {:.2} PED", data.lastlootvalue);
-                                println!("Total loot: {:.2} PED", data.totallootvalue);
-                                println!("----------------------------------");
-                            });
-                        }
+                        // Skriv ut resultat för mobben
+                        crate::read_any_data(&COLLECTEDDATA, |data| {
+                            println!("----------------------------------");
+                            println!("Shots on this mob: {}", data.lastmobshots);
+                            println!("Number of kills: {}", data.numberofkills);
+                            println!("Loot on this kill: {:.2} PED", data.lastlootvalue);
+                            println!("Total loot: {:.2} PED", data.totallootvalue);
+                            println!("----------------------------------");
+                        });
                     }
                 }
             }
@@ -184,8 +182,7 @@ pub fn findpatterns(line: &str) {
         println!("{}",newstring);
     }
 
-return;
-
+    return;
 }
 
 
@@ -212,7 +209,7 @@ pub fn analyzestring(data: &str) {
 
 pub fn formatstring(line: &str) -> String
 {
-    // 1. Skapa en muterbar (föränderlig) String från input
+    // Skapa en muterbar String från input
     let mut newline = line.to_string();
 
 
@@ -228,7 +225,6 @@ pub fn formatstring(line: &str) -> String
     }
 
 
-
     if newline.contains("&gt;")
     {
         newline = newline.replace("&gt;", ">");
@@ -242,12 +238,7 @@ pub fn formatstring(line: &str) -> String
         newline = newline.split_off(20);
     }
 
-    // 4. Returnera det färdiga resultatet
+    //Returnera det färdiga resultatet
     return newline;
 }
-
-
-
-
-
 

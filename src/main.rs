@@ -54,7 +54,7 @@ pub struct CollectedData {
     pub totalshots: i32,
     pub lastmobshots: i32,
     pub numberofkills: i32,
-    pub is_mob_dead: bool, // Lägg till detta! Standardvärde: false
+    pub is_mob_dead: bool, // kontroll efter varje skott, för att få en bättre koll på om moben är död.
 }
 
 
@@ -117,16 +117,11 @@ F: FnOnce(&T) -> R,
 
 
 
-
 // Hämta en specifik variabel
 //let current_dmg = crate::read_collected_data(|data| data.totaldamage);
 
 // Eller skriv ut direkt
 //crate::read_collected_data(|data| {println!("Nuvarande skada: {}, Dödade: {}", data.totaldamage, data.numberofkills);});
-
-
-
-
 
 
 
@@ -146,18 +141,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     inifilereader::load_config_file()?;
 
 
-    // Nu är CONFIG satt, du kan hämta data så här:
+    // Nu är CONFIG satt, data kan hämtas:
     let config = crate::CONFIG.get().unwrap();
     //println!("{:?}", config.target_file);
 
 
     // Create a mutable instance OUTSIDE the loop
-    // 1. FIRST: Initialize and set the global variable
+    // Initialize and set the global variable
     let data = CollectedData::default();
     COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
-    // Create the targetfile on a debug based install to make it work.car
+    //Create the targetfile on a debug based install to make it work.car
     //create_mock_log_file(&config.target_file).expect("Failed to create mock log file");
 
 
@@ -180,7 +175,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let lines = tailer.read_new_lines()?;
 
         for line in lines {
-            //println!("Fångade rad: {}", line);
+            //println!("Debug line: {}", line);
 
             // Skydda mot krasch
             let result = std::panic::catch_unwind(|| {findpatterns(&line);});
@@ -191,6 +186,4 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         std::thread::sleep(std::time::Duration::from_millis(1));
     }
-
-
 }
