@@ -31,7 +31,7 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut target_file = String::new();
     let mut fifo_pipe = String::new();
-    let mut blockentries = String::new();
+    let mut blockentries = Vec::new();
     let mut avatarname = String::new();
     let mut ammoburn = 0;
     let mut usecost = 0.0;
@@ -56,7 +56,17 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
             match key {
                 "target_file" => target_file = value.to_string(),
                 "fifo_pipe" => fifo_pipe = value.to_string(),
-                "blockentries" => blockentries = value.to_string(),
+//                "blockentries" => blockentries = value.to_string().into(),
+
+"blockentries" => {
+    blockentries = value
+    .split(',')
+    .map(|s| s.trim().to_string())
+    .filter(|s| !s.is_empty())
+    .collect();
+}
+
+
                 "ammoburn" => ammoburn = value.parse().unwrap_or(0),
                 "usecost" => usecost = value.parse().unwrap_or(0.0),
                 "avatarname" => avatarname = value.to_string(),
@@ -73,6 +83,13 @@ pub fn load_config_file() -> Result<(), Box<dyn std::error::Error>> {
         usecost,
         avatarname,
     };
+
+    // --- LÄGG UTSKRIFTEN HÄR (innan CONFIG.set) ---
+    println!("Antal blockentries: {}", config.blockentries.len());
+    for (i, entry) in config.blockentries.iter().enumerate() {
+        println!("  [{}] '{}'", i, entry);
+    }
+    // ----------------------------------------------
 
     let _ = CONFIG.set(config);
     Ok(())

@@ -63,22 +63,12 @@ pub struct CollectedData {
 pub struct Config {
     pub target_file: String,
     pub fifo_pipe: String,
-    pub blockentries: String,
+    pub blockentries: Vec<String>,
     pub ammoburn: i32,
     pub usecost: f32,
     pub avatarname: String,
 }
 
-impl Config {
-    // Hjälpmetod som automatiskt ger dig en Vec<String>
-    pub fn blockentries_vec(&self) -> Vec<String> {
-        self.blockentries
-        .split(',')
-        .map(|s| s.trim().to_string())
-        .filter(|s| !s.is_empty())
-        .collect()
-    }
-}
 
 
 //ansi colors and details on text

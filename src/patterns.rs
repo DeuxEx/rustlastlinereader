@@ -15,6 +15,7 @@ use crate::update_collected_data;
 
 
 use colored::*;
+use nix::libc::BLKIOMIN;
 
 use std::i32;
 use std::sync::Mutex;
@@ -65,6 +66,14 @@ pub fn findpatterns(line: &str) {
     }; // <-- låset släpps automatiskt här
 
 
+    let blockentries: Vec<String> =
+    {
+        let config_data = CONFIG.get().expect("Config is not initialized!");
+        let config = config_data;
+        config.blockentries.clone()
+    }; // <-- låset släpps automatiskt här
+
+
     let mut totaldamage: f32 = 0.0;
     let mut lastdamage: f32 = 0.0;
     let mut totalshots: i32 = 0;
@@ -74,7 +83,17 @@ pub fn findpatterns(line: &str) {
     let mut totallootvalue: f32 = 0.0;
 
 
+    //kolla först efter no-no words så droppar vi dom direkt
+    // Kollar om nån av delsträngarna finns inuti `line`
+    if blockentries.iter().any(|entry| line.contains(entry)) {
+        //println!("entry blocked");
+        return;
+    }
+
+
+    //börja visa raderna nu så slipper vi det som blockats
     println!("{}",line);
+
 
 
     // Sök efter avatarnamn
