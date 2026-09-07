@@ -1,11 +1,13 @@
-I needed a Rust code that is a watchdog for a file and when it modifies a function is called
+I needed to learn Rust coding because I migrated to 100% linux and C# with dotnet isnt available on this platform.
 
-this is a replica of my robust c# code that analyses a logfile and process the results into memory
-to be used by other executables that can read the memorymaps and present outputs and make decisions (bot)
+So I started to make a replica of my robust C# code but very much improved.
 
-im fairly new to Rust so this is alot of re-thinking how Rust works compared to C#
+All developement are made in Void Linux and I´m using Kate and Helix to do the code.
 
-later on the project maybe will be crosscompiled to windows, but primarily focus is Linux.
+The code runs 100% in shell but will be sending short data via the dbus service to a GUI (elk4) applikations, and it will
+be calculated in the GUI app and shows in the window there so the shell runner will not be interfered with calculations.
+
+Later on the project maybe will be crosscompiled to windows, but primarily focus is Linux.
 
 to use the executable:
 git clone this path and chmod +x the targetfile
