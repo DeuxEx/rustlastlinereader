@@ -1,12 +1,56 @@
-   0.103739104s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: stale: changed "/home/void/rustlastlinereader/src/patterns.rs"
-   0.103752876s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:           (vs) "/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-c3110b778f7034ab/dep-bin-deuxeureader"
-   0.103760787s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1788806900, nanos: 396917418 } < FileTime { seconds: 1788807035, nanos: 862320823 }
-   0.103855320s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint dirty for deuxeureader v0.1.2 (/home/void/rustlastlinereader)/Check { test: false }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
-   0.103872311s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-c3110b778f7034ab/dep-bin-deuxeureader", reference_mtime: FileTime { seconds: 1788806900, nanos: 396917418 }, stale: "/home/void/rustlastlinereader/src/patterns.rs", stale_mtime: FileTime { seconds: 1788807035, nanos: 862320823 } }))
-   0.107330411s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: stale: changed "/home/void/rustlastlinereader/src/patterns.rs"
-   0.107338381s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:           (vs) "/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-4b186e7da5fbf38f/dep-test-bin-deuxeureader"
-   0.107345372s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1788806900, nanos: 396917418 } < FileTime { seconds: 1788807035, nanos: 862320823 }
-   0.107389706s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint dirty for deuxeureader v0.1.2 (/home/void/rustlastlinereader)/Check { test: true }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
-   0.107403749s  INFO prepare_target{force=false package_id=deuxeureader v0.1.2 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-4b186e7da5fbf38f/dep-test-bin-deuxeureader", reference_mtime: FileTime { seconds: 1788806900, nanos: 396917418 }, stale: "/home/void/rustlastlinereader/src/patterns.rs", stale_mtime: FileTime { seconds: 1788807035, nanos: 862320823 } }))
-    Checking deuxeureader v0.1.2 (/home/void/rustlastlinereader)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.21s
+   0.041183551s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint error for deuxeureader v0.1.3 (/home/void/rustlastlinereader)/Check { test: false }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
+   0.041203312s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-41a28e9a5cffc5f4/bin-deuxeureader`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  16: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  17: <unknown>
+   0.074594391s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint error for deuxeureader v0.1.3 (/home/void/rustlastlinereader)/Check { test: true }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
+   0.074614659s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-57d547e61cdc6dfd/test-bin-deuxeureader`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  16: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  17: <unknown>
+    Checking deuxeureader v0.1.3 (/home/void/rustlastlinereader)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s

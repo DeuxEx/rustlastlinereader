@@ -142,7 +142,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     COLLECTEDDATA.set(Mutex::new(data)).expect("Failed to initialize COLLECTEDDATA");
 
 
-    //Create the targetfile on a debug based install to make it work.car
+    //Create the targetfile on a debug based install to make it work. unrem next line!
     //create_mock_log_file(&config.target_file).expect("Failed to create mock log file");
 
 
@@ -153,7 +153,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         // Add a loop here to wait for the file if needed
     }
 
-    // 3. Initialize the tailer
+    // Initialize the tailer
     let mut tailer = LineTailer::new(config.target_file.clone())?;
 
 
