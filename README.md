@@ -4,7 +4,7 @@ So I started to make a replica of my robust C# code but very much improved.
 
 All developement are made in Void Linux and I´m using Kate and Helix to do the code.
 
-The code runs 100% in shell but will be sending short data via the dbus service to a GUI (elk4) applikations, and it will
+The code runs 100% in shell but will be sending short data via the dbus service to a GUI (relm4) applikations, and it will
 be calculated in the GUI app and shows in the window there so the shell runner will not be interfered with calculations.
 
 Later on the project maybe will be crosscompiled to windows, but primarily focus is Linux.
