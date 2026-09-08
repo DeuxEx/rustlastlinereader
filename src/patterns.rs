@@ -201,6 +201,7 @@ pub fn findpatterns(line: &str) {
         println!("{}",newstring);
     }
 
+    //finally return
     return;
 }
 

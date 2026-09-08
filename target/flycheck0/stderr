@@ -1,5 +1,5 @@
-   0.041183551s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint error for deuxeureader v0.1.3 (/home/void/rustlastlinereader)/Check { test: false }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
-   0.041203312s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-41a28e9a5cffc5f4/bin-deuxeureader`
+   0.117677578s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint error for deuxeureader v0.1.3 (/home/void/rustlastlinereader)/Check { test: false }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
+   0.117696031s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-41a28e9a5cffc5f4/bin-deuxeureader`
 
 Caused by:
     No such file or directory (os error 2)
@@ -25,8 +25,1383 @@ Stack backtrace:
   16: __libc_start_main_impl
              at ./csu/../csu/libc-start.c:360:3
   17: <unknown>
-   0.074594391s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint error for deuxeureader v0.1.3 (/home/void/rustlastlinereader)/Check { test: true }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
-   0.074614659s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-57d547e61cdc6dfd/test-bin-deuxeureader`
+   0.144678226s  INFO prepare_target{force=false package_id=colored v2.2.0 target="colored"}: cargo::core::compiler::fingerprint: fingerprint error for colored v2.2.0/Check { test: false }/TargetInner { ..: lib_target("colored", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/colored-2.2.0/src/lib.rs", Edition2021) }
+   0.144695339s  INFO prepare_target{force=false package_id=colored v2.2.0 target="colored"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/colored-5bc520f0da77421f/lib-colored`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.144883714s  INFO prepare_target{force=false package_id=lazy_static v1.5.0 target="lazy_static"}: cargo::core::compiler::fingerprint: fingerprint error for lazy_static v1.5.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("lazy_static", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lazy_static-1.5.0/src/lib.rs", Edition2015) }
+   0.144892795s  INFO prepare_target{force=false package_id=lazy_static v1.5.0 target="lazy_static"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/lazy_static-56e16de9218911db/lib-lazy_static`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.145034048s  INFO prepare_target{force=false package_id=nix v0.31.3 target="nix"}: cargo::core::compiler::fingerprint: fingerprint error for nix v0.31.3/Check { test: false }/TargetInner { ..: lib_target("nix", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.31.3/src/lib.rs", Edition2021) }
+   0.145041536s  INFO prepare_target{force=false package_id=nix v0.31.3 target="nix"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/nix-bfe0877c2ae11c9f/lib-nix`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.145246970s  INFO prepare_target{force=false package_id=bitflags v2.13.1 target="bitflags"}: cargo::core::compiler::fingerprint: fingerprint error for bitflags v2.13.1/Check { test: false }/TargetInner { ..: lib_target("bitflags", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.13.1/src/lib.rs", Edition2021) }
+   0.145254798s  INFO prepare_target{force=false package_id=bitflags v2.13.1 target="bitflags"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/bitflags-b1101e46cc0ceb09/lib-bitflags`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.145420172s  INFO prepare_target{force=false package_id=cfg-if v1.0.4 target="cfg_if"}: cargo::core::compiler::fingerprint: fingerprint error for cfg-if v1.0.4/Check { test: false }/TargetInner { ..: lib_target("cfg_if", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-if-1.0.4/src/lib.rs", Edition2018) }
+   0.145428283s  INFO prepare_target{force=false package_id=cfg-if v1.0.4 target="cfg_if"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/cfg-if-268df95b4164e82c/lib-cfg_if`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.145567175s  INFO prepare_target{force=false package_id=libc v0.2.189 target="libc"}: cargo::core::compiler::fingerprint: fingerprint error for libc v0.2.189/Check { test: false }/TargetInner { ..: lib_target("libc", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.189/src/lib.rs", Edition2021) }
+   0.145577084s  INFO prepare_target{force=false package_id=libc v0.2.189 target="libc"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/libc-074175d65ef2da01/lib-libc`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.145936757s  INFO prepare_target{force=false package_id=libc v0.2.189 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for libc v0.2.189/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.189/build.rs", Edition2021) }
+   0.145947670s  INFO prepare_target{force=false package_id=libc v0.2.189 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/libc-a6815462ef20d371/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.146068012s  INFO prepare_target{force=false package_id=libc v0.2.189 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for libc v0.2.189/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.189/build.rs", Edition2021) }
+   0.146081009s  INFO prepare_target{force=false package_id=libc v0.2.189 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/libc-9e8ff71257b3e22c/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.146439804s  INFO prepare_target{force=false package_id=nix v0.31.3 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for nix v0.31.3/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.31.3/build.rs", Edition2021) }
+   0.146451644s  INFO prepare_target{force=false package_id=nix v0.31.3 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/nix-787adc32060fac72/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.146582745s  INFO prepare_target{force=false package_id=nix v0.31.3 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for nix v0.31.3/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nix-0.31.3/build.rs", Edition2021) }
+   0.146590159s  INFO prepare_target{force=false package_id=nix v0.31.3 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/nix-7ad5e32791a8760f/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.146775834s  INFO prepare_target{force=false package_id=cfg_aliases v0.2.2 target="cfg_aliases"}: cargo::core::compiler::fingerprint: fingerprint error for cfg_aliases v0.2.2/Build/TargetInner { ..: lib_target("cfg_aliases", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg_aliases-0.2.2/src/lib.rs", Edition2018) }
+   0.146783992s  INFO prepare_target{force=false package_id=cfg_aliases v0.2.2 target="cfg_aliases"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/cfg_aliases-a86c335ffc905748/lib-cfg_aliases`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.146914961s  INFO prepare_target{force=false package_id=notify v8.2.0 target="notify"}: cargo::core::compiler::fingerprint: fingerprint error for notify v8.2.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("notify", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-8.2.0/src/lib.rs", Edition2021) }
+   0.146922927s  INFO prepare_target{force=false package_id=notify v8.2.0 target="notify"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/notify-968294922f1ab79b/lib-notify`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.147141217s  INFO prepare_target{force=false package_id=inotify v0.11.5 target="inotify"}: cargo::core::compiler::fingerprint: fingerprint error for inotify v0.11.5/Check { test: false }/TargetInner { ..: lib_target("inotify", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/inotify-0.11.5/src/lib.rs", Edition2018) }
+   0.147152128s  INFO prepare_target{force=false package_id=inotify v0.11.5 target="inotify"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/inotify-b269882cea4a5d0b/lib-inotify`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.147317509s  INFO prepare_target{force=false package_id=inotify-sys v0.1.8 target="inotify_sys"}: cargo::core::compiler::fingerprint: fingerprint error for inotify-sys v0.1.8/Check { test: false }/TargetInner { ..: lib_target("inotify_sys", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/inotify-sys-0.1.8/src/lib.rs", Edition2015) }
+   0.147326112s  INFO prepare_target{force=false package_id=inotify-sys v0.1.8 target="inotify_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/inotify-sys-d055df5bb024dc92/lib-inotify_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.147618719s  INFO prepare_target{force=false package_id=inotify-sys v0.1.8 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for inotify-sys v0.1.8/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/inotify-sys-0.1.8/build.rs", Edition2015) }
+   0.147630727s  INFO prepare_target{force=false package_id=inotify-sys v0.1.8 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/inotify-sys-9029421fd66911a1/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.147764357s  INFO prepare_target{force=false package_id=inotify-sys v0.1.8 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for inotify-sys v0.1.8/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/inotify-sys-0.1.8/build.rs", Edition2015) }
+   0.147771316s  INFO prepare_target{force=false package_id=inotify-sys v0.1.8 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/inotify-sys-017d99ff8d2d1693/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.147938217s  INFO prepare_target{force=false package_id=log v0.4.34 target="log"}: cargo::core::compiler::fingerprint: fingerprint error for log v0.4.34/Check { test: false }/TargetInner { ..: lib_target("log", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.34/src/lib.rs", Edition2021) }
+   0.147946400s  INFO prepare_target{force=false package_id=log v0.4.34 target="log"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/log-7560e6cc23a5db85/lib-log`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.148109411s  INFO prepare_target{force=false package_id=mio v1.2.2 target="mio"}: cargo::core::compiler::fingerprint: fingerprint error for mio v1.2.2/Check { test: false }/TargetInner { ..: lib_target("mio", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/mio-1.2.2/src/lib.rs", Edition2021) }
+   0.148117332s  INFO prepare_target{force=false package_id=mio v1.2.2 target="mio"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/mio-ff0a3caf7f6f9bf5/lib-mio`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.148295713s  INFO prepare_target{force=false package_id=notify-types v2.1.0 target="notify_types"}: cargo::core::compiler::fingerprint: fingerprint error for notify-types v2.1.0/Check { test: false }/TargetInner { ..: lib_target("notify_types", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-types-2.1.0/src/lib.rs", Edition2021) }
+   0.148306334s  INFO prepare_target{force=false package_id=notify-types v2.1.0 target="notify_types"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/notify-types-5daf348716ca7d06/lib-notify_types`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.148447812s  INFO prepare_target{force=false package_id=walkdir v2.5.0 target="walkdir"}: cargo::core::compiler::fingerprint: fingerprint error for walkdir v2.5.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("walkdir", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/walkdir-2.5.0/src/lib.rs", Edition2018) }
+   0.148457654s  INFO prepare_target{force=false package_id=walkdir v2.5.0 target="walkdir"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/walkdir-f51e49862a2eb72a/lib-walkdir`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.148666323s  INFO prepare_target{force=false package_id=same-file v1.0.6 target="same_file"}: cargo::core::compiler::fingerprint: fingerprint error for same-file v1.0.6/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("same_file", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/same-file-1.0.6/src/lib.rs", Edition2018) }
+   0.148675053s  INFO prepare_target{force=false package_id=same-file v1.0.6 target="same_file"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/same-file-9dbb0f9365d008dd/lib-same_file`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.148799922s  INFO prepare_target{force=false package_id=notify-debouncer-full v0.7.0 target="notify_debouncer_full"}: cargo::core::compiler::fingerprint: fingerprint error for notify-debouncer-full v0.7.0/Check { test: false }/TargetInner { ..: lib_target("notify_debouncer_full", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/notify-debouncer-full-0.7.0/src/lib.rs", Edition2021) }
+   0.148807855s  INFO prepare_target{force=false package_id=notify-debouncer-full v0.7.0 target="notify_debouncer_full"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/notify-debouncer-full-0acfc8f24bc3195c/lib-notify_debouncer_full`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.148971980s  INFO prepare_target{force=false package_id=file-id v0.2.3 target="file_id"}: cargo::core::compiler::fingerprint: fingerprint error for file-id v0.2.3/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("file_id", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/file-id-0.2.3/src/lib.rs", Edition2021) }
+   0.148980269s  INFO prepare_target{force=false package_id=file-id v0.2.3 target="file_id"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/file-id-f87a24de30bcfb65/lib-file_id`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.149143150s  INFO prepare_target{force=false package_id=regex v1.13.1 target="regex"}: cargo::core::compiler::fingerprint: fingerprint error for regex v1.13.1/Check { test: false }/TargetInner { ..: lib_target("regex", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/regex-1.13.1/src/lib.rs", Edition2021) }
+   0.149153719s  INFO prepare_target{force=false package_id=regex v1.13.1 target="regex"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/regex-438ebdc1d25effd9/lib-regex`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.149361089s  INFO prepare_target{force=false package_id=aho-corasick v1.1.5 target="aho_corasick"}: cargo::core::compiler::fingerprint: fingerprint error for aho-corasick v1.1.5/Check { test: false }/TargetInner { ..: lib_target("aho_corasick", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aho-corasick-1.1.5/src/lib.rs", Edition2021) }
+   0.149369352s  INFO prepare_target{force=false package_id=aho-corasick v1.1.5 target="aho_corasick"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/aho-corasick-893fce7cdefdc034/lib-aho_corasick`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.149510089s  INFO prepare_target{force=false package_id=memchr v2.8.3 target="memchr"}: cargo::core::compiler::fingerprint: fingerprint error for memchr v2.8.3/Check { test: false }/TargetInner { benched: false, ..: lib_target("memchr", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/memchr-2.8.3/src/lib.rs", Edition2021) }
+   0.149518105s  INFO prepare_target{force=false package_id=memchr v2.8.3 target="memchr"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/memchr-c0a52047e74e68eb/lib-memchr`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.149652202s  INFO prepare_target{force=false package_id=regex-automata v0.4.18 target="regex_automata"}: cargo::core::compiler::fingerprint: fingerprint error for regex-automata v0.4.18/Check { test: false }/TargetInner { benched: false, ..: lib_target("regex_automata", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/regex-automata-0.4.18/src/lib.rs", Edition2021) }
+   0.149660301s  INFO prepare_target{force=false package_id=regex-automata v0.4.18 target="regex_automata"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/regex-automata-7eb8b2a65c831d06/lib-regex_automata`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.149897122s  INFO prepare_target{force=false package_id=regex-syntax v0.8.11 target="regex_syntax"}: cargo::core::compiler::fingerprint: fingerprint error for regex-syntax v0.8.11/Check { test: false }/TargetInner { ..: lib_target("regex_syntax", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/regex-syntax-0.8.11/src/lib.rs", Edition2021) }
+   0.149905516s  INFO prepare_target{force=false package_id=regex-syntax v0.8.11 target="regex_syntax"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/regex-syntax-4c7e9268ae76d877/lib-regex_syntax`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.150096271s  INFO prepare_target{force=false package_id=serde v1.0.229 target="serde"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.229/Check { test: false }/TargetInner { ..: lib_target("serde", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs", Edition2021) }
+   0.150104520s  INFO prepare_target{force=false package_id=serde v1.0.229 target="serde"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde-430000b6419af280/lib-serde`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.150414681s  INFO prepare_target{force=false package_id=serde v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.229/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/build.rs", Edition2021) }
+   0.150426779s  INFO prepare_target{force=false package_id=serde v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde-ba3b514a8d59c961/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.150562681s  INFO prepare_target{force=false package_id=serde v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.229/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/build.rs", Edition2021) }
+   0.150569790s  INFO prepare_target{force=false package_id=serde v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde-6104a38fdc7dd7ca/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.150708403s  INFO prepare_target{force=false package_id=serde_core v1.0.229 target="serde_core"}: cargo::core::compiler::fingerprint: fingerprint error for serde_core v1.0.229/Check { test: false }/TargetInner { ..: lib_target("serde_core", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.229/src/lib.rs", Edition2021) }
+   0.150719047s  INFO prepare_target{force=false package_id=serde_core v1.0.229 target="serde_core"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde_core-997c3de3e3c2f866/lib-serde_core`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.151017349s  INFO prepare_target{force=false package_id=serde_core v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde_core v1.0.229/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.229/build.rs", Edition2021) }
+   0.151032820s  INFO prepare_target{force=false package_id=serde_core v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde_core-dc6d657af149a7d7/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.151134349s  INFO prepare_target{force=false package_id=serde_core v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde_core v1.0.229/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.229/build.rs", Edition2021) }
+   0.151141928s  INFO prepare_target{force=false package_id=serde_core v1.0.229 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde_core-ddd986dd0215f9ba/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.151292899s  INFO prepare_target{force=false package_id=serde_derive v1.0.229 target="serde_derive"}: cargo::core::compiler::fingerprint: fingerprint error for serde_derive v1.0.229/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("serde_derive", ["proc-macro"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_derive-1.0.229/src/lib.rs", Edition2021) }
+   0.151301694s  INFO prepare_target{force=false package_id=serde_derive v1.0.229 target="serde_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde_derive-f046f745cc4065a4/lib-serde_derive`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.151465201s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.107 target="proc_macro2"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.107/Build/TargetInner { ..: lib_target("proc_macro2", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.107/src/lib.rs", Edition2021) }
+   0.151473518s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.107 target="proc_macro2"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/proc-macro2-b98573641780ff02/lib-proc_macro2`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.151771545s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.107 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.107/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.107/build.rs", Edition2021) }
+   0.151783740s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.107 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/proc-macro2-38bf90349345f584/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.151897267s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.107 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.107/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.107/build.rs", Edition2021) }
+   0.151910102s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.107 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/proc-macro2-daebe7b26feed7bf/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.152093798s  INFO prepare_target{force=false package_id=unicode-ident v1.0.24 target="unicode_ident"}: cargo::core::compiler::fingerprint: fingerprint error for unicode-ident v1.0.24/Build/TargetInner { ..: lib_target("unicode_ident", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unicode-ident-1.0.24/src/lib.rs", Edition2021) }
+   0.152102191s  INFO prepare_target{force=false package_id=unicode-ident v1.0.24 target="unicode_ident"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/unicode-ident-0b445ccc412a4842/lib-unicode_ident`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.152251050s  INFO prepare_target{force=false package_id=quote v1.0.47 target="quote"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.47/Build/TargetInner { ..: lib_target("quote", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/quote-1.0.47/src/lib.rs", Edition2021) }
+   0.152258806s  INFO prepare_target{force=false package_id=quote v1.0.47 target="quote"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/quote-f230467f1f63c354/lib-quote`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.152564264s  INFO prepare_target{force=false package_id=quote v1.0.47 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.47/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/quote-1.0.47/build.rs", Edition2021) }
+   0.152576394s  INFO prepare_target{force=false package_id=quote v1.0.47 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/quote-2839876c289b0d8e/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.152687203s  INFO prepare_target{force=false package_id=quote v1.0.47 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.47/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/quote-1.0.47/build.rs", Edition2021) }
+   0.152694774s  INFO prepare_target{force=false package_id=quote v1.0.47 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/quote-7fd3f3106fd4e962/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.152835143s  INFO prepare_target{force=false package_id=syn v3.0.4 target="syn"}: cargo::core::compiler::fingerprint: fingerprint error for syn v3.0.4/Build/TargetInner { ..: lib_target("syn", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/syn-3.0.4/src/lib.rs", Edition2021) }
+   0.152845460s  INFO prepare_target{force=false package_id=syn v3.0.4 target="syn"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/syn-69bd8212f39377e3/lib-syn`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.153048366s  INFO prepare_target{force=false package_id=serde_ini v0.2.0 target="serde_ini"}: cargo::core::compiler::fingerprint: fingerprint error for serde_ini v0.2.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("serde_ini", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_ini-0.2.0/src/lib.rs", Edition2015) }
+   0.153057179s  INFO prepare_target{force=false package_id=serde_ini v0.2.0 target="serde_ini"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/serde_ini-5152e64261bdf93a/lib-serde_ini`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.153203913s  INFO prepare_target{force=false package_id=result v1.0.0 target="result"}: cargo::core::compiler::fingerprint: fingerprint error for result v1.0.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("result", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/result-1.0.0/src/lib.rs", Edition2015) }
+   0.153212367s  INFO prepare_target{force=false package_id=result v1.0.0 target="result"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/result-a5f85e844a78fee1/lib-result`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.153333346s  INFO prepare_target{force=false package_id=void v1.0.2 target="void"}: cargo::core::compiler::fingerprint: fingerprint error for void v1.0.2/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("void", ["lib"], "/home/void/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/void-1.0.2/src/lib.rs", Edition2015) }
+   0.153344076s  INFO prepare_target{force=false package_id=void v1.0.2 target="void"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/void-50baa397237c96b4/lib-void`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.153494282s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint: fingerprint error for deuxeureader v0.1.3 (/home/void/rustlastlinereader)/Check { test: true }/TargetInner { name: "deuxeureader", doc: true, ..: with_path("/home/void/rustlastlinereader/src/main.rs", Edition2024) }
+   0.153502617s  INFO prepare_target{force=false package_id=deuxeureader v0.1.3 (/home/void/rustlastlinereader) target="deuxeureader"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/void/rustlastlinereader/target/debug/.fingerprint/deuxeureader-57d547e61cdc6dfd/test-bin-deuxeureader`
 
 Caused by:
     No such file or directory (os error 2)
@@ -52,5 +1427,37 @@ Stack backtrace:
   16: __libc_start_main_impl
              at ./csu/../csu/libc-start.c:360:3
   17: <unknown>
+   Compiling libc v0.2.189
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling inotify-sys v0.1.8
+    Checking bitflags v2.13.1
+   Compiling serde_core v1.0.229
+    Checking same-file v1.0.6
+   Compiling serde v1.0.229
+   Compiling cfg_aliases v0.2.2
+    Checking memchr v2.8.3
+    Checking log v0.4.34
+    Checking notify-types v2.1.0
+   Compiling nix v0.31.3
+    Checking walkdir v2.5.0
+    Checking regex-syntax v0.8.11
+    Checking file-id v0.2.3
+    Checking void v1.0.2
+    Checking result v1.0.0
+    Checking lazy_static v1.5.0
+    Checking cfg-if v1.0.4
+    Checking colored v2.2.0
+    Checking aho-corasick v1.1.5
+   Compiling syn v3.0.4
+    Checking mio v1.2.2
+    Checking regex-automata v0.4.18
+    Checking inotify v0.11.5
+    Checking notify v8.2.0
+    Checking notify-debouncer-full v0.7.0
+   Compiling serde_derive v1.0.229
+    Checking regex v1.13.1
+    Checking serde_ini v0.2.0
     Checking deuxeureader v0.1.3 (/home/void/rustlastlinereader)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 8.65s
