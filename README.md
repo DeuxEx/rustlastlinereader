@@ -22,7 +22,7 @@ The principles here — continuously tailing a stream of log lines, matching pat
 
 In enterprise environments, what you are doing goes by a few different names depending on the scale:
 
-Log Parsing & Ingestion (e.g., Logstash, Fluentd, Vector): 
+Log Parsing & Ingestion (e.g., <b>Logstash, Fluentd, Vector</b>): <br>
 These tools continuously read log files (or network streams from routers, servers, and firewalls), parse strings via keywords or regex, and extract metrics (just like your loot, damage, and shots).
 
 SIEM / Log Management Systems (e.g., Splunk, Elastic Stack/ELK, Graylog):
