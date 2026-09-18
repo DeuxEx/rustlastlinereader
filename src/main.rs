@@ -27,8 +27,7 @@ use std::env;
 
 use serde::Deserialize;
 
-use std::{array, fs::{File, OpenOptions},
-};
+use std::{array, fs::{File, OpenOptions},};
 
 
 use std::time::Duration;
@@ -41,8 +40,23 @@ pub static CONFIG: OnceLock<Config> = OnceLock::new();
 use std::sync::Mutex;
 pub static COLLECTEDDATA: OnceLock<Mutex<CollectedData>> = OnceLock::new();
 
-
 static VERSION: &str = env!("CARGO_PKG_VERSION"); // Hämtar t.ex. "0.1.1" från Cargo.toml
+
+
+
+use signal_hook::consts::{SIGINT, SIGTSTP};
+use signal_hook::iterator::Signals;
+use std::{ops::Drop, thread};
+
+struct ExitGuard;
+
+impl Drop for ExitGuard {
+    fn drop(&mut self) {
+        // Körs ALLTID när programmet avslutas (oavsett om det var Ctrl+C, error eller normalt slut)
+        println!("\n[Avslut] Programmet stängs ner. Städar upp resurser...");
+    }
+}
+
 
 
 #[derive(Debug, Default)]
@@ -76,6 +90,9 @@ use colored::*;
 
 
 
+
+
+
 pub fn update_collected_data<F>(f: F)
 where
 F: FnOnce(&mut CollectedData),
@@ -106,12 +123,11 @@ F: FnOnce(&T) -> R,
 }
 
 
+fn break_routine(signal: i32) {
+    println!("\n[Signal ({})] Gemensam rutin körs!", signal);
+}
 
-// Hämta en specifik variabel
-//let current_dmg = crate::read_collected_data(|data| data.totaldamage);
 
-// Eller skriv ut direkt
-//crate::read_collected_data(|data| {println!("Nuvarande skada: {}, Dödade: {}", data.totaldamage, data.numberofkills);});
 
 
 
@@ -124,7 +140,32 @@ fn showbanner()
 
 
 
+
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Aktivera avslutshanteraren (körs automatiskt när funktionens scope tar slut)
+    let _guard = ExitGuard;
+
+    // Registrate SIGTSTP (Ctrl+Z) och SIGINT (Ctrl+C)
+    let mut signals = Signals::new(&[SIGTSTP, SIGINT])?;
+
+    thread::spawn(move || {
+        for sig in signals.forever() {
+            match sig {
+                SIGINT | SIGTSTP => {
+                    // Same routine for both CTRL+C and CTRL+Z
+                    break_routine(sig);
+
+                    // Om det var Ctrl+C vill du oftast att programmet faktiskt avslutas
+                    if sig == SIGINT {
+                        std::process::exit(0);
+                    }
+                }
+                _ => unreachable!(),
+            }
+        }
+    });
+
 
     showbanner();
 
